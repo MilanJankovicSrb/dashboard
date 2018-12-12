@@ -1,0 +1,29 @@
+<mat-toolbar color="primary" class="mat-elevation-z2">
+    <mat-toolbar-row>
+        <button mat-icon-button class="iconButton">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span class="title noSelect">Dashboard</span>
+        <span class="spacer"></span>
+        <mat-form-field appearance="outline" class="searchField">
+            <mat-icon matPrefix class="inputIcon noSelect">search</mat-icon>
+            <input matInput placeholder="Search" [formControl]="value" #input>
+            <mat-icon matSuffix class="inputIcon noSelect pointer" 
+                        matRipple
+                        [matRippleRadius]="20"
+                        (click)="cleanValue();"
+                        >close</mat-icon>
+        </mat-form-field>
+        <div class="iconsDiv">
+            <button mat-icon-button class="iconButton">
+                <mat-icon>help</mat-icon>
+            </button>
+            <button mat-icon-button class="iconButton">
+                <mat-icon>person_pin</mat-icon>
+            </button>
+            <button mat-icon-button class="iconButton">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>

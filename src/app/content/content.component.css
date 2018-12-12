@@ -1,0 +1,238 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 64px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.paginator {
+    height: 40px;
+    width: calc(100% - 28px);
+    padding: 0 14px;
+    background-color: rgb(242, 242, 242);
+    display: flex;
+} 
+.facetsSidenav {
+    width: 300px;
+    background-color: rgb(242, 242, 242);
+}
+.sidenav-container {
+    flex: 1;
+}
+.is-mobile .sidenav-container {
+    flex: 1 0 auto;
+}
+.noSelect {
+    -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+                user-select: none;
+}
+.contentContainer {
+}
+::ng-deep .mat-paginator-container {
+    min-height: 40px !important;
+    height: 40px !important;
+    background-color: rgb(242, 242, 242);
+}
+.spacer {
+    flex: 1 1 auto;
+}
+.arrows {
+    position: relative;
+    transform: scale(0.7);
+    top: 2px;
+    color: rgb(115, 115, 115);
+}
+.filter {
+    position: relative;
+    right: 15px;
+    color: rgb(115, 115, 115);
+}
+.filterReset {
+    position: relative;
+    left: 3px;
+    color: rgb(115, 115, 115);
+}
+.reset {
+    position: relative;
+    transform: scale(0.6);
+    right: 12px;
+    top: 2px;
+    color: rgb(115, 115, 115);
+}
+.sidenavControl {
+    width: 316px;
+}
+.sortIcon {
+    transform: scale(0.9);
+    color: rgb(111, 111, 111);
+}
+.sortButton {
+    position: relative;
+    right: 10px;
+    color: rgb(111, 111, 111);
+}
+::ng-deep .orderByPanel.mat-select-panel {
+    background: rgba(255, 255, 255, 0.9);
+}
+.sortAndOrder {
+    display: flex;
+}
+::ng-deep .orderBy .mat-form-field-wrapper {
+    font-size: 13px !important;
+}
+.orderText {
+    margin-right: 10px;
+    font-size: 14px;
+    position: relative;
+    top: 15px;
+    color: rgb(111, 111, 111);
+}
+::ng-deep .orderByPanel .mat-option-text {
+    font-size: 14px;
+}
+.mat-expansion-panel {
+    border-bottom: 1px solid rgba(211, 211, 211, 0.921);
+    background-color: rgba(255, 255, 255, 0.2) !important; 
+    box-shadow: 0 0px 0px 0px rgba(0,0,0,.2), 0 0px 0px 0 rgba(0,0,0,.14), 0 0px 0px 0 rgba(0,0,0,.12) !important;
+}
+.mat-expansion-panel-header {
+    padding: 0 0 0 24px !important;
+}
+.mat-expansion-panel-header-title {
+    line-height: 24px !important;
+}
+::ng-deep .mat-expansion-panel-body {
+    padding: 0 5px 16px 5px !important;
+}
+.mat-list-base {
+    padding-top: 0px !important;
+}
+::ng-deep .mat-list-item {
+    height: 40px !important;
+}
+.viewport {
+    height: calc(100vh - 104px);
+    width: 100%;
+}
+.listItem {
+    display: flex;
+    height: 89px;
+    width: calc(100% - 20px);
+    background-color: rgba(25, 25, 255, 0.03);
+    border-bottom: 1px solid lightgray;
+    border-left: 1px solid lightgray;
+    padding: 5px 20px 5px 10px;
+    border-bottom-left-radius: 7px;
+    border-top-left-radius: 7px;
+    margin-left: -1px;
+}
+.employee, .secondSign, .amountDiv, .costCentre, .date {
+    height: 89px;
+}
+.employee {
+    margin-left: 21px;
+}
+.secondSign span, .date span, .amountDiv span {
+    line-height: 30px;
+}
+.costCentre span {
+    line-height: 22px;
+}
+.employee span {
+    line-height: 18px;
+}
+.costCentre {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.secondSign, .employee, .secondSignTitle, .secondSignId {
+    width: 310px;
+}
+.amountDiv {
+    width: 170px;
+}
+.date, .dateTitle {
+    width: 110px;
+}
+.descr {
+    font-size: 14px;
+    width: 90px;
+    color: gray;
+    font-weight: normal;
+}
+.descrAmount {
+    font-size: 14px;
+    width: 60px;
+    font-weight: normal;
+    color: gray;
+}
+.dateDescr {
+    font-size: 14px;
+    color: gray;
+}
+span {
+    display: inline-block;
+    font-size: 15px;
+}
+.dateTitle, .secondSignTitle, .secondSignId {
+    text-align: center;
+}
+.workerId {
+    font-size: 17px;
+    font-weight: bold;
+    color: rgb(55, 72, 170);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 280px;
+}
+.amount, .currency {
+    font-size: 16px;
+}
+.importoValuta {
+    font-size: 21px;
+    font-weight: bold;
+    color: rgb(141, 0, 0);
+}
+.cdcInfo {
+    position: relative;
+    top: 6px;
+    margin-right: 5px;
+    left: -2px;
+    color: rgba(0, 0, 0, 0.608);
+}
+.listIcon {
+    position: relative;
+    top: 5px;
+    margin-right: 5px;
+    left: -2px;
+    color: rgba(0, 0, 0, 0.708);
+}
+.cdcId {
+    font-weight: bold;
+}
+.yearMonthDay {
+    font-size: 17px;
+    font-weight: bold;
+    width: 110px;
+    text-align: center; 
+}
+.absoluteNote {
+    font-size: 17px;
+    position: absolute;
+    left: 210px;
+    border: 1px dashed lightgray;
+    padding: 0 5px;
+    border-radius: 8px;
+}
+.selected {
+    background-color: rgba(0, 0, 172, 0.63) !important;
+    color: white !important;
+}

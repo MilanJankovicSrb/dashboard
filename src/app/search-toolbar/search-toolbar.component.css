@@ -1,0 +1,64 @@
+.iconsDiv {
+    margin-left: 28px;
+}
+.spacer {
+    flex: 1 1 auto;
+}
+.title {
+    margin-left: 14px;
+    letter-spacing: 4px;
+    font-size: 30px;
+}
+.searchField {
+    height: 60px;
+    width: calc(100% - 500px);
+}
+.inputIcon {
+    position: relative !important;
+    bottom: 2px !important;
+    border-radius: 15px;
+    width: 28px;
+    height: 28px;
+    font-size: 28px;
+}
+.pointer {
+    cursor: pointer;
+}
+.noSelect {
+    -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+                user-select: none;
+}
+::ng-deep .mat-form-field-wrapper {
+    font-size: 19px !important;
+    top: 1px !important;
+}
+::ng-deep .mat-form-field-infix {
+    padding: 0.4em 0 !important;
+    bottom: 4px;
+    left: 10px;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+       color: rgba(255, 255, 255, 0.219);
+    }
+::ng-deep input, ::placeholder, .mat-form-field-label {
+          color: white;
+       }
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+    color: rgba(255, 255, 255, 0.605) !important;
+}
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: white !important;
+}
+::ng-deep .mat-input-element {
+    caret-color: white !important;
+}
+::ng-deep .mat-form-field-label {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+    color: white !important;
+}
