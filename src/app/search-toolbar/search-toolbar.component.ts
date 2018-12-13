@@ -1,3 +1,4 @@
+import { DashboardService } from './../dashboard.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
@@ -9,19 +10,31 @@ import { debounceTime } from 'rxjs/operators';
 })
 export class SearchToolbarComponent implements OnInit {
   value = new FormControl('');
+  autocompleteList = [];
 
-  constructor() { }
+  constructor(private service: DashboardService) { }
 
   ngOnInit() {
-      this.value.valueChanges
-        .pipe(
-          debounceTime(300)
-        ).subscribe(res => {
-          // call service code
-        });
+    this.value.valueChanges
+      .pipe(
+        debounceTime(300)
+      ).subscribe(res => {
+        if (res.length > 2) {
+          this.service.getAutocompleteList(res).subscribe(response => {
+            this.autocompleteList = response['data'];
+          });
+        } else {
+          this.autocompleteList = [];
+        }
+      });
   }
 
   cleanValue() {
     this.value.setValue('');
+  }
+
+  selectOption(slicedSearch: string, fullSearch: string) {
+    const temp = {'value': slicedSearch, 'descr': fullSearch};
+    this.service.setValueSearch(temp);
   }
 }

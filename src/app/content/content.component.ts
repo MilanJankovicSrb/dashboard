@@ -2,8 +2,9 @@ import { FormControl } from '@angular/forms';
 import { DashboardService } from './../dashboard.service';
 import { Component, OnInit, OnDestroy, ChangeDetectorRef, AfterViewChecked, ViewChild } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { PageEvent } from '@angular/material';
+import { PageEvent, MatPaginator } from '@angular/material';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
 
 @Component({
   selector: 'app-content',
@@ -23,6 +24,7 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
   activePageDataChunk = [];
 
   @ViewChild(CdkVirtualScrollViewport) scroll: CdkVirtualScrollViewport;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   facetCategories: Array<Object> = [
     { code: 'cdc', descr: 'Cost centre' , icon: 'sitemap'},
@@ -40,7 +42,13 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   selectedFacets = [];
 
-  items = Array.from({length: 100000}).map((_, i) => `Item #${i}`);
+  numMore = [];
+  hasMore = [];
+
+  searchText;
+
+  loading = false;
+  public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
 
   constructor(private changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private service: DashboardService) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
@@ -48,19 +56,16 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.mobileQuery.addListener(this._mobileQueryListener);
     for (const i of this.facetCategories) {
       this.selectedFacets[i['code']] = [];
+      this.numMore[i['code']] = 1;
     }
   }
 
   ngOnInit(): void {
-    this.service.getList(this.pageSize, this.pageIndex, 1, this.ascending).subscribe(response => {
-      this.activePageDataChunk = response['data'];
-      this.length = response['count'];
+    this.service.searchValue$.subscribe(res => {
+      this.searchText = res;
     });
-    for (const entry of this.facetCategories) {
-      this.service.getFacets(entry['code'], 1).subscribe(response => {
-        this.facetOptions[entry['code']] = response['facetOptions'];
-      });
-    }
+    this.loadList(this.pageSize, this.pageIndex);
+    this.loadFacets();
   }
 
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -73,10 +78,22 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   loadList(size: number, index: number) {
-    this.service.getList(size, index, this.orderBy.value, this.ascending).subscribe(res => {
+    this.loading = true;
+    this.service.getList(size, index, this.orderBy.value, this.ascending, this.selectedFacets, this.searchText).subscribe(res => {
       this.activePageDataChunk = res['data'];
+      this.length = res['count'];
       this.scroll.scrollToIndex(0);
+      this.loading = false;
     });
+  }
+
+  loadFacets() {
+    for (const entry of this.facetCategories) {
+        this.service.getFacets(entry['code'], this.numMore[entry['code']], this.selectedFacets, this.searchText).subscribe(response => {
+          this.facetOptions[entry['code']] = response['facetOptions'];
+          this.hasMore[entry['code']] = response['hasMore'];
+        });
+    }
   }
 
   isSelected(category: string, code: string) {
@@ -90,15 +107,37 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   selectFacet(category: string, code: string) {
     const index = this.selectedFacets[category].indexOf(code);
-    if (index !== -1) {
+    if (index === -1) {
       this.selectedFacets[category].push(code);
     } else {
       this.selectedFacets[category].splice(index, 1);
     }
+    this.pageIndex = 0;
+    this.paginator.pageIndex = 0;
+    this.loadList(this.pageSize, this.pageIndex);
+    this.loadFacets();
   }
 
   trackByFn(index, item) {
     return index;
+  }
+
+  showMore(more: boolean, cat: string) {
+    if (more) {
+      ++this.numMore[cat];
+    } else {
+      this.numMore[cat] = 1;
+    }
+    this.loadFacets();
+  }
+
+  resetAll() {
+    for (const i of this.facetCategories) {
+      this.selectedFacets[i['code']] = [];
+      this.numMore[i['code']] = 1;
+    }
+    this.loadList(this.pageSize, this.pageIndex);
+    this.loadFacets();
   }
 
   ngAfterViewChecked() {

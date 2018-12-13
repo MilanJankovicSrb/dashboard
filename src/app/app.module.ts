@@ -5,7 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 import { HttpClientModule } from '@angular/common/http';
-import {ScrollDispatchModule} from '@angular/cdk/scrolling';
+import { ScrollDispatchModule } from '@angular/cdk/scrolling';
+import { NgxLoadingModule } from 'ngx-loading';
 
 
 import { AppComponent } from './app.component';
@@ -28,7 +29,8 @@ import localeIt from '@angular/common/locales/it';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    ScrollDispatchModule
+    ScrollDispatchModule,
+    NgxLoadingModule.forRoot({})
   ],
   providers: [],
   bootstrap: [AppComponent]

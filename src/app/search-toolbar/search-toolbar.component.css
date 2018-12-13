@@ -62,3 +62,23 @@
 ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
     color: white !important;
 }
+.option {
+    height: 60px !important;
+    padding: 0 17px;
+}
+.employee {
+    color: rgb(55, 72, 170);
+    display: inline-block;
+    width: 25%;
+}
+.amount {
+    font-size: 21px;
+    font-weight: bold;
+    color: rgb(141, 0, 0);
+    display: inline-block;
+    width: 7%;
+}
+.note {
+    font-style:italic;
+    letter-spacing: 1px; 
+}

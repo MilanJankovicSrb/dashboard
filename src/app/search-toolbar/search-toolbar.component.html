@@ -7,13 +7,17 @@
         <span class="spacer"></span>
         <mat-form-field appearance="outline" class="searchField">
             <mat-icon matPrefix class="inputIcon noSelect">search</mat-icon>
-            <input matInput placeholder="Search" [formControl]="value" #input>
+            <input matInput placeholder="Search" [formControl]="value" #input [matAutocomplete]="auto">
             <mat-icon matSuffix class="inputIcon noSelect pointer" 
                         matRipple
                         [matRippleRadius]="20"
                         (click)="cleanValue();"
                         >close</mat-icon>
         </mat-form-field>
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option class="option" *ngFor="let option of autocompleteList" [value]="option" (click)="selectOption(value.slice(0, 12), value)">
+                <span class="employee">{{option.lavMatricola}} - {{option.lavCognome}} {{option.lavNome}}</span>Amount:<span class="amount"> {{option.varieImporto}}</span><span class="note">Note: {{option.nota | titlecase}}</span></mat-option>
+        </mat-autocomplete>
         <div class="iconsDiv">
             <button mat-icon-button class="iconButton">
                 <mat-icon>help</mat-icon>

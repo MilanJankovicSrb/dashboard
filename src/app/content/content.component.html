@@ -79,44 +79,61 @@
                         </mat-panel-description>
                     </mat-expansion-panel-header>
                     <mat-nav-list class="noSelect">
-                        <a mat-list-item routerLink="." (click)="selectFacet(category.code, entry.code)" *ngFor="let entry of facetOptions[category.code]" [ngClass]="{'selected': isSelected(category.code, entry.code)}">
-                            <span>{{entry.descr}}</span>
+                        <a mat-list-item routerLink="." (click)="selectFacet(category.code, entry.code)" *ngFor="let entry of facetOptions[category.code]" [ngClass]="{'selected': isSelected(category.code, entry.code), 'mat-elevation-z2': isSelected(category.code, entry.code)}">
+                            <mat-icon class="facetOptionIcon">arrow_right</mat-icon>
+                            <span *ngIf="category.code !== 'mon' && category.code !== 'amt'">{{entry.descr}}</span>
+                            <span *ngIf="category.code === 'amt' && entry.code === '0'">0€ - 50€</span>
+                            <span *ngIf="category.code === 'amt' && entry.code === '1'">51€ - 250€</span>
+                            <span *ngIf="category.code === 'amt' && entry.code === '2'">251€ - 500€</span>
+                            <span *ngIf="category.code === 'amt' && entry.code === '3'">501€ - 1000€</span>
+                            <span *ngIf="category.code === 'amt' && entry.code === '4'">>1000€</span>
+                            <span *ngIf="category.code === 'mon'">{{ entry.descr | slice:0:4 }} / {{ entry.descr | slice:4:end}}</span>
                             <div class="spacer"></div>
                             <span>({{entry.count}})</span>
                         </a>
                     </mat-nav-list>
+                    <button mat-raised-button class="showMore" *ngIf="category.code !== 'amt' && facetOptions[category.code].length >= 5" (click)="showMore(true, category.code)" [disabled]="!hasMore[category.code]">Show more</button>
+                    <button mat-raised-button class="showLess" *ngIf="category.code !== 'amt' && facetOptions[category.code].length >= 5 && numMore[category.code] > 1" (click)="showMore(false, category.code)">Show less</button>
                 </mat-expansion-panel>
         </mat-sidenav>
         <mat-sidenav-content class="contentContainer">
-            <cdk-virtual-scroll-viewport itemSize="100" class="viewport">
+            <ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.circle, primaryColour: '#3f51b5', secondaryColour: '##ffffff', backdropBorderRadius: '3px' }"></ngx-loading>
+            <cdk-virtual-scroll-viewport itemSize="150" class="viewport">
                 <div *cdkVirtualFor="let item of activePageDataChunk; templateCacheSize: 0"
-                     class="listItem"
-                     cdkVirtualForTrackBy="trackByFn()">
-                     <div class="employee">
-                        <mat-icon class="listIcon">person_outlined</mat-icon><span class="workerId">{{item.lavMatricola}} - {{item.lavCognome}} {{item.lavNome}}</span><br>
-                        <mat-icon class="cdcInfo" svgIcon="sitemap"></mat-icon><span class="cdcId"><span class="descr">Cost centre ID:</span> {{item.codCdc}}</span><br>
-                        <mat-icon class="listIcon">business</mat-icon><span class="companyId"><span class="descr">Company ID:</span> {{item.socDescbreve}}</span>
-                     </div>
-                     <div class="costCentre">
-                         <span class="cdcDescription"><span class="descr">Cost centre:</span> {{item.cdcDescrizione}}</span><br>
-                         <span class="cdcResp"><span class="descr">Responsible:</span> {{item.cdcResponsabile}} - {{item.cdcRespCognome}} {{item.cdcRespNome}}</span><br>
-                         <span class="cdcSegment" *ngIf="item.cdcConsolidationSegment"><span class="descr">Segment:</span> {{item.cdcConsolidationSegment}}</span><br>
-                         <span class="absoluteNote" *ngIf="item.nota">Note: {{item.nota}}</span>
-                     </div>
-                     <div class="spacer"></div>
-                     <div class="date">
-                         <span class="dateTitle"><mat-icon class="listIcon">date_range</mat-icon><span class="dateDescr">Date:</span></span><br>
-                         <span class="yearMonthDay">{{item.rapGiorno}}/{{item.rapMese}}/{{item.rapAnno}} ({{item.speProgressivo}})</span><br>
-                     </div>
-                     <div class="secondSign">
-                        <span class="secondSignTitle"><mat-icon class="listIcon">done_all</mat-icon><span class="descr">Second sign:</span></span><br>
-                        <span class="secondSignId">{{item.f2Matricola}} - {{item.f2Cognome}} {{item.f2Nome}}</span>
-                     </div>
-                     <div class="amountDiv">
-                        <span class="amount"><span class="descrAmount">Amount:</span> {{item.varieImporto | currency:'EUR':'':'1.2-2':'it' }}</span><br>
-                        <span class="currency" *ngIf="item.divCodice"><span class="descrAmount">Currency:</span> {{item.divCodice}}</span><br>
-                        <span class="importoValuta" *ngIf="item.importoValuta"><span class="descrAmount">In EUR:</span> {{item.importoValuta | currency:'EUR':'symbol':'1.2-2':'it'}}</span>
-                     </div>
+                    class="listItem"
+                    cdkVirtualForTrackBy="trackByFn()">
+                    <div class="infoDiv">
+                        <div class="employee">
+                            <mat-icon class="listIcon top">person_outlined</mat-icon><span class="workerId">{{item.lavMatricola}}</span><br>
+                            <span class="workerId worker">{{item.lavCognome}} {{item.lavNome}}</span><br><br>
+                            <mat-icon class="listIcon">business</mat-icon><span class="companyId"><span class="descr">Company ID:</span> {{item.socDescbreve}}</span>
+                        </div>
+                        <div class="costCentre">
+                            <span class="cdcTitle"><mat-icon class="cdcInfo" svgIcon="sitemap"></mat-icon><span class="cdcId"><span class="descr">Cost centre ID:</span> {{item.codCdc}}</span></span><br>
+                            <span class="cdcDescription"><span class="descr">Description:</span> {{item.cdcDescrizione}}</span><br>
+                            <span class="cdcResp"><span class="descr">Responsible:</span> {{item.cdcResponsabile}} - {{item.cdcRespCognome}} {{item.cdcRespNome}}</span><br>
+                            <span class="cdcSegment" *ngIf="item.cdcConsolidationSegment"><span class="descr">Segment:</span> {{item.cdcConsolidationSegment}}</span>
+                        </div>
+                        <div class="spacer"></div>
+                        <div class="date">
+                            <span class="dateTitle"><mat-icon class="listIcon">date_range</mat-icon><span class="dateDescr">Date:</span></span><br>
+                            <span class="yearMonthDay">{{item.rapGiorno}}/{{item.rapMese}}/{{item.rapAnno}} ({{item.speProgressivo}})</span><br>
+                        </div>
+                        <div class="secondSign">
+                            <span class="secondSignTitle"><mat-icon class="listIcon">done_all</mat-icon><span class="descr">Second sign:</span></span><br>
+                            <span class="secondSignId">{{item.f2Matricola}} - {{item.f2Cognome}} {{item.f2Nome}}</span><br>
+                        </div>
+                        <div class="amountDiv">
+                            <span class="amount" [ngClass]="{'importoValuta': !item.importoValuta}"><span class="descrAmount">Amount:</span> {{item.varieImporto | currency:'EUR':'':'1.2-2':'it' }}</span><br>
+                            <span class="currency" *ngIf="item.divCodice"><span class="descrAmount">Currency:</span> {{item.divCodice}}</span><br>
+                            <span class="importoValuta" *ngIf="item.importoValuta"><span class="descrAmount">In EUR:</span> {{item.importoValuta | currency:'EUR':'symbol':'1.2-2':'it'}}</span>
+                        </div>
+                    </div>
+                    <mat-divider *ngIf="item.nota">
+                    </mat-divider>
+                    <div class="note" *ngIf="item.nota">
+                        <mat-icon class="noteIcon">comment</mat-icon><span class="absoluteNote" *ngIf="item.nota"><span class="descrNote">Note:</span> {{item.nota}}</span>
+                    </div>
                 </div>
             </cdk-virtual-scroll-viewport>
         </mat-sidenav-content>
