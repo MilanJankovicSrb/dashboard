@@ -1,8 +1,36 @@
+@media only screen and (min-width: 480px) {
+}
+
+@media only screen and (min-width: 600px) {
+}
+
+@media only screen and (min-width: 768px) {
+}
+
+@media only screen and (min-width: 992px) {
+}
+
+@media only screen and (max-width: 1300px) {
+    .secondSign {
+        display: none;
+    }
+}
+@media only screen and (max-width: 1640px) {
+    .costCentre {
+        display: none;
+    }
+    .absoluteNote {
+        display: none;
+    }
+    .spacer {
+        display: none;
+    }
+}
 .container {
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 64px;
+    top: 48px;
     bottom: 0;
     left: 0;
     right: 0;
@@ -13,6 +41,7 @@
     padding: 0px 163px 0 14px;
     background-color: rgb(242, 242, 242);
     display: flex;
+    border-bottom: 1px solid lightgray;
 } 
 .facetsSidenav {
     width: 300px;
@@ -103,7 +132,7 @@
     box-shadow: 0 0px 0px 0px rgba(0,0,0,.2), 0 0px 0px 0 rgba(0,0,0,.14), 0 0px 0px 0 rgba(0,0,0,.12) !important;
 }
 .mat-expansion-panel-header {
-    padding: 0 0 0 20px !important;
+    padding: 0 10px 0 20px !important;
 }
 .mat-expansion-panel-header-title {
     line-height: 24px !important;
@@ -128,7 +157,7 @@
     display: block;
     height: 139px;
     width: calc(100% - 20px);
-    background-color: rgba(25, 25, 255, 0.03);
+    background-color: rgb(255, 255, 255);
     border-bottom: 1px solid lightgray;
     border-left: 1px solid lightgray;
     padding: 5px 20px 5px 10px;
@@ -151,10 +180,13 @@
     margin-left: 10px;
     padding-top: 5px;
 }
-.secondSign span, .date span, .amountDiv span {
+.date span, .amountDiv span {
     line-height: 30px;
 }
 .costCentre span {
+    line-height: 24px;
+}
+.secondSign span {
     line-height: 24px;
 }
 .employee span {
@@ -198,10 +230,15 @@ span {
 .dateTitle, .secondSignTitle, .secondSignId {
     text-align: center;
 }
+.secondSignId {
+    color: rgb(97, 97, 97);
+    font-weight: bold;
+    font-size: 16px;
+}
 .workerId {
     font-size: 20px;
     font-weight: bold;
-    color: rgb(55, 72, 170);
+    color: rgb(2, 120, 189);
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -221,7 +258,7 @@ span {
 .importoValuta {
     font-size: 21px;
     font-weight: bold;
-    color: rgb(141, 0, 0);
+    color: rgba(141, 0, 0, 0.705);
 }
 .cdcInfo {
     position: relative;
@@ -240,10 +277,12 @@ span {
 .top {
     font-size: 29px;
     top: 0;
-    left: -5px
+    left: -5px;
+    color: rgb(2, 120, 189);
 }
 .cdcId {
     font-weight: bold;
+    font-size: 20px;
     letter-spacing: 2px;
 }
 .yearMonthDay {
@@ -254,18 +293,18 @@ span {
 }
 .absoluteNote {
     font-size: 17px;
-    color: maroon;
+    color: rgba(128, 0, 0, 0.712);
     position: relative;
     left: 10px;
     bottom: 5px;
 }
 .selected {
-    background-color: rgba(0, 39, 231, 0.541) !important;
+    background-color: rgba(2, 120, 189, 0.61) !important;
     color: white !important;
 }
 .cdcTitle {
     position: relative;
-    left: 70px;
+    left: 2px;
 }
 ::ng-deep .mat-list-item-ripple.mat-ripple {
     border-radius: 15px;
@@ -280,12 +319,13 @@ span {
     font-size: 22px;
     position: relative;
     left: 8px;
-    color: maroon;
+    color: rgba(128, 0, 0, 0.712);
 }
 ::ng-deep .mat-drawer-inner-container::-webkit-scrollbar {
     width: 5px;
 }
-
+::ng-deep .mat-drawer-container {
+}
 ::ng-deep .mat-drawer-inner-container::-webkit-scrollbar-thumb {
     background: rgba(167, 167, 167, 0.551);
     border-radius: 20px;
@@ -299,4 +339,33 @@ span {
     margin: 0 30px;
 }
 .facetOptionIcon {
+}
+.mat-expansion-panel-header-title .mat-icon {
+    color: gray;
+}
+::ng-deep .mat-toolbar-row, .mat-toolbar-single-row {
+    background-color: rgb(2, 120, 189) !important;
+}
+.noFilters {
+    display: none;
+}
+.includeMargin {
+    margin-left: 30px;
+}
+.mat-badge {
+    top: 11px !important;
+    left: 2px !important;
+    margin-right: 30px !important;
+}
+.mat-badge-content.mat-badge-active {
+    background-color: #0277bd !important;
+}
+.selectedOption {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.move {
+    font-size: 24px !important;
+    width: 28px !important;
 }

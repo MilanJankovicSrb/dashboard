@@ -65,35 +65,46 @@
                             [style.marginTop.px]="mobileQuery.matches ? 0 : 0">
         <mat-sidenav #snav class="facetsSidenav" [mode]="mobileQuery.matches ? 'over' : 'side'"
                     [fixedInViewport]="mobileQuery.matches" fixedTopGap="104" [opened]="mobileQuery.matches ? 'false' : 'true'">
-                <mat-expansion-panel [expanded]="i &lt; 1" hideToggle *ngFor="let category of facetCategories; let i = index">
+                    <mat-expansion-panel [disabled]="chosenFilters.length === 0" 
+                           [expanded]="chosenFilters.length !== 0">
+        <mat-expansion-panel-header class="noSelect">
+          <mat-panel-title>
+            <div matBadge="{{chosenFilters.length}}" 
+                 matBadgeSize="medium" 
+                 matBadgeOverlap="false"
+                 [ngClass]="{'noFilters': chosenFilters.length === 0}"></div>
+            <span [ngClass]="{'includeMargin': chosenFilters.length === 0}">Selected filters</span> 
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-nav-list class="noSelect">
+                <a mat-list-item class="selected mat-elevation-z2" routerLink="." (click)="deselectFacet(entry)" *ngFor="let entry of chosenFilters">
+                    <mat-icon class="facetOptionIcon move" *ngIf="entry.icon !== 'sitemap'">{{entry.icon}}</mat-icon>
+                    <mat-icon class="facetOptionIcon move" svgIcon="{{entry.icon}}" *ngIf="entry.icon === 'sitemap'"></mat-icon>
+                    <span class="selectedOption">&nbsp;{{entry.descr}}</span>
+                </a>
+            </mat-nav-list>
+      </mat-expansion-panel>
+                <mat-expansion-panel [expanded]="i &lt; 1" *ngFor="let category of facetCategories; let i = index">
                     <mat-expansion-panel-header class="noSelect">
                         <mat-panel-title>
-                        {{category.descr}}
-                        </mat-panel-title>
-                        <mat-panel-description>
-                            <div class="spacer"></div>
                             <mat-icon *ngIf="category.icon !== 'sitemap'">{{category.icon}}</mat-icon>
                             <mat-icon svgIcon="{{category.icon}}" 
-                                      matListIcon
-                                      *ngIf="category.icon === 'sitemap'"></mat-icon>
-                        </mat-panel-description>
+                                        matListIcon
+                                        *ngIf="category.icon === 'sitemap'"></mat-icon>
+                        &nbsp;&nbsp;{{category.descr}}
+                        </mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-nav-list class="noSelect">
-                        <a mat-list-item routerLink="." (click)="selectFacet(category.code, entry.code)" *ngFor="let entry of facetOptions[category.code]" [ngClass]="{'selected': isSelected(category.code, entry.code), 'mat-elevation-z2': isSelected(category.code, entry.code)}">
+                        <a mat-list-item routerLink="." (click)="selectFacet(category.code, entry.code); moveToChosen(entry, category.code, category.icon)" *ngFor="let entry of facetOptions[category.code]" [ngClass]="{'selected': isSelected(category.code, entry.code), 'mat-elevation-z2': isSelected(category.code, entry.code)}">
                             <mat-icon class="facetOptionIcon">arrow_right</mat-icon>
-                            <span *ngIf="category.code !== 'mon' && category.code !== 'amt'">{{entry.descr}}</span>
-                            <span *ngIf="category.code === 'amt' && entry.code === '0'">0€ - 50€</span>
-                            <span *ngIf="category.code === 'amt' && entry.code === '1'">51€ - 250€</span>
-                            <span *ngIf="category.code === 'amt' && entry.code === '2'">251€ - 500€</span>
-                            <span *ngIf="category.code === 'amt' && entry.code === '3'">501€ - 1000€</span>
-                            <span *ngIf="category.code === 'amt' && entry.code === '4'">>1000€</span>
+                            <span *ngIf="category.code !== 'mon'">{{entry.descr}}</span>
                             <span *ngIf="category.code === 'mon'">{{ entry.descr | slice:0:4 }} / {{ entry.descr | slice:4:end}}</span>
                             <div class="spacer"></div>
                             <span>({{entry.count}})</span>
                         </a>
                     </mat-nav-list>
-                    <button mat-raised-button class="showMore" *ngIf="category.code !== 'amt' && facetOptions[category.code].length >= 5" (click)="showMore(true, category.code)" [disabled]="!hasMore[category.code]">Show more</button>
-                    <button mat-raised-button class="showLess" *ngIf="category.code !== 'amt' && facetOptions[category.code].length >= 5 && numMore[category.code] > 1" (click)="showMore(false, category.code)">Show less</button>
+                    <button mat-raised-button class="showMore" *ngIf="category.code !== 'amt' && facetOptions[category.code]?.length >= 5" (click)="showMore(true, category.code)" [disabled]="!hasMore[category.code]">Show more</button>
+                    <button mat-raised-button class="showLess" *ngIf="category.code !== 'amt' && facetOptions[category.code]?.length >= 5 && numMore[category.code] > 1" (click)="showMore(false, category.code)">Show less</button>
                 </mat-expansion-panel>
         </mat-sidenav>
         <mat-sidenav-content class="contentContainer">
@@ -117,9 +128,13 @@
                         <div class="spacer"></div>
                         <div class="date">
                             <span class="dateTitle"><mat-icon class="listIcon">date_range</mat-icon><span class="dateDescr">Date:</span></span><br>
-                            <span class="yearMonthDay">{{item.rapGiorno}}/{{item.rapMese}}/{{item.rapAnno}} ({{item.speProgressivo}})</span><br>
+                            <span class="yearMonthDay">{{item.rapGiorno}}/{{item.rapMese}}/{{item.rapAnno}}</span><br>
                         </div>
                         <div class="secondSign">
+                            <span *ngFor="let sign of item.f1">
+                                    <span class="secondSignTitle" *ngIf="sign"><mat-icon class="listIcon">done</mat-icon><span class="descr">First sign:</span></span><br *ngIf="sign">
+                                    <span class="secondSignId" *ngIf="sign">{{sign.matr}} - {{sign.conome | slice:1:end}}</span><br *ngIf="sign">
+                            </span>
                             <span class="secondSignTitle"><mat-icon class="listIcon">done_all</mat-icon><span class="descr">Second sign:</span></span><br>
                             <span class="secondSignId">{{item.f2Matricola}} - {{item.f2Cognome}} {{item.f2Nome}}</span><br>
                         </div>
@@ -129,8 +144,6 @@
                             <span class="importoValuta" *ngIf="item.importoValuta"><span class="descrAmount">In EUR:</span> {{item.importoValuta | currency:'EUR':'symbol':'1.2-2':'it'}}</span>
                         </div>
                     </div>
-                    <mat-divider *ngIf="item.nota">
-                    </mat-divider>
                     <div class="note" *ngIf="item.nota">
                         <mat-icon class="noteIcon">comment</mat-icon><span class="absoluteNote" *ngIf="item.nota"><span class="descrNote">Note:</span> {{item.nota}}</span>
                     </div>

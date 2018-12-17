@@ -27,13 +27,13 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   facetCategories: Array<Object> = [
-    { code: 'cdc', descr: 'Cost centre' , icon: 'sitemap'},
-    { code: 'rcdc', descr: 'Responsible of the CC' , icon: 'visibility'},
-    { code: 'amt', descr: 'Amount' , icon: 'euro_symbol'},
-    { code: 'snd', descr: 'Second sign' , icon: 'done_all'},
-    { code: 'soc', descr: 'Company' , icon: 'business'},
-    { code: 'mon', descr: 'Year/Month' , icon: 'date_range'},
-    { code: 'lav', descr: 'Worker' , icon: 'person_outline'}
+    { code: 'cdc', descr: 'CdC' , icon: 'sitemap'},
+    { code: 'rcdc', descr: 'Resp. CdC' , icon: 'visibility'},
+    { code: 'amt', descr: 'Importo' , icon: 'euro_symbol'},
+    { code: 'snd', descr: 'Seconda Firma' , icon: 'done_all'},
+    { code: 'soc', descr: 'Societa' , icon: 'business'},
+    { code: 'mon', descr: 'Mese' , icon: 'date_range'},
+    { code: 'lav', descr: 'Lavoratore' , icon: 'person_outline'}
   ];
   facetOptions: Object = {};
   ascending: boolean = true;
@@ -41,6 +41,7 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
   orderBy = new FormControl(1);
 
   selectedFacets = [];
+  chosenFilters = [];
 
   numMore = [];
   hasMore = [];
@@ -63,6 +64,8 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
   ngOnInit(): void {
     this.service.searchValue$.subscribe(res => {
       this.searchText = res;
+      this.loadList(this.pageSize, this.pageIndex);
+      this.loadFacets();
     });
     this.loadList(this.pageSize, this.pageIndex);
     this.loadFacets();
@@ -118,6 +121,28 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.loadFacets();
   }
 
+  deselectFacet(item) {
+    const index = this.chosenFilters.findIndex(i => i.code === item.code);
+    const indexInSelected = this.selectedFacets[item.cat].indexOf(item.code);
+    if (index !== -1) {
+      this.chosenFilters.splice(index, 1);
+    }
+    if (indexInSelected !== -1) {
+      this.selectedFacets[item.cat].splice(indexInSelected, 1);
+    }
+    this.loadList(this.pageSize, this.pageIndex);
+    this.loadFacets();
+  }
+
+  moveToChosen(item, cat, icon) {
+    const index = this.chosenFilters.findIndex(i => i.code === item.code);
+    if (index === -1) {
+      this.chosenFilters.push({'cat': cat, 'icon': icon, 'descr' : item.descr, 'code': item.code});
+    } else {
+      this.chosenFilters.splice(index, 1);
+    }
+  }
+
   trackByFn(index, item) {
     return index;
   }
@@ -136,6 +161,8 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.selectedFacets[i['code']] = [];
       this.numMore[i['code']] = 1;
     }
+    this.chosenFilters = [];
+    this.searchText = '';
     this.loadList(this.pageSize, this.pageIndex);
     this.loadFacets();
   }

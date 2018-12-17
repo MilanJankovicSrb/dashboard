@@ -3,19 +3,24 @@
         <button mat-icon-button class="iconButton">
             <mat-icon>menu</mat-icon>
         </button>
-        <span class="title noSelect">Dashboard</span>
+        <span class="title noSelect">Spese di Rappresentanza</span>
         <span class="spacer"></span>
-        <mat-form-field appearance="outline" class="searchField">
-            <mat-icon matPrefix class="inputIcon noSelect">search</mat-icon>
-            <input matInput placeholder="Search" [formControl]="value" #input [matAutocomplete]="auto">
+        <mat-form-field appearance="outline" class="searchField" [ngStyle]="{'background-color': searchColor}">
+            <mat-icon matPrefix class="inputIcon noSelect" [ngStyle]="{'color': iconColor}">search</mat-icon>
+            <input matInput placeholder="Cerca" [formControl]="value" 
+                   #input [matAutocomplete]="auto"
+                   class="search"
+                   (focus)="onFocus()"
+                   (focusout)="onFocusOut()">
             <mat-icon matSuffix class="inputIcon noSelect pointer" 
                         matRipple
                         [matRippleRadius]="20"
+                        [ngStyle]="{'color': iconColor}"
                         (click)="cleanValue();"
                         >close</mat-icon>
         </mat-form-field>
         <mat-autocomplete #auto="matAutocomplete">
-            <mat-option class="option" *ngFor="let option of autocompleteList" [value]="option" (click)="selectOption(value.slice(0, 12), value)">
+            <mat-option class="option" *ngFor="let option of autocompleteList" [value]="option.nota" (click)="selectOption(value.value.slice(0, 12), value.value)">
                 <span class="employee">{{option.lavMatricola}} - {{option.lavCognome}} {{option.lavNome}}</span>Amount:<span class="amount"> {{option.varieImporto}}</span><span class="note">Note: {{option.nota | titlecase}}</span></mat-option>
         </mat-autocomplete>
         <div class="iconsDiv">

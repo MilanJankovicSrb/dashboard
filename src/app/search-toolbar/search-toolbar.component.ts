@@ -11,6 +11,8 @@ import { debounceTime } from 'rxjs/operators';
 export class SearchToolbarComponent implements OnInit {
   value = new FormControl('');
   autocompleteList = [];
+  searchColor: string;
+  iconColor: string;
 
   constructor(private service: DashboardService) { }
 
@@ -35,6 +37,16 @@ export class SearchToolbarComponent implements OnInit {
 
   selectOption(slicedSearch: string, fullSearch: string) {
     const temp = {'value': slicedSearch, 'descr': fullSearch};
+    console.log(temp);
     this.service.setValueSearch(temp);
+  }
+
+  onFocus() {
+    this.searchColor = 'white';
+    this.iconColor = 'rgb(2, 119, 189)';
+  }
+  onFocusOut() {
+    this.searchColor = 'rgb(2, 107, 170)';
+    this.iconColor = 'white';
   }
 }

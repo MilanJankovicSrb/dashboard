@@ -30,6 +30,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref" :"/proto_co/",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
