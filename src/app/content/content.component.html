@@ -43,7 +43,7 @@
                     matTooltip="Discendente" 
                     class="sortIcon"></mat-icon>
             </button>
-            <span class="orderText">Order by:</span>
+            <span class="orderText">Ordina per:</span>
             <mat-form-field class="orderBy" floatLabel="never">
                 <mat-select [formControl]="orderBy" panelClass="orderByPanel">
                     <mat-option [value]="1">1</mat-option>
@@ -65,6 +65,39 @@
                             [style.marginTop.px]="mobileQuery.matches ? 0 : 0">
         <mat-sidenav #snav class="facetsSidenav" [mode]="mobileQuery.matches ? 'over' : 'side'"
                     [fixedInViewport]="mobileQuery.matches" fixedTopGap="104" [opened]="mobileQuery.matches ? 'false' : 'true'">
+        <!-- <mat-expansion-panel [expanded]="true">
+         <mat-expansion-panel-header class="noSelect">
+          <mat-panel-title>
+            <span>Test chart</span> 
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <dx-chart id="chart"
+          [class]="isFirstLevel?'pointer-on-bars':''"
+          [dataSource]="dataSource"
+          (onPointClick)="onPointClick($event)"
+          title="Anno / Mese"
+          [customizePoint]="customizePoint">
+            <dxi-series type="bar" [barPadding]="0"></dxi-series>
+            <dxo-legend [visible]="false"></dxo-legend>
+            <dxi-value-axis [showZero]="false" [maxValueMargin]="0.01"></dxi-value-axis>
+            <dxo-argument-axis>
+                <dxo-label
+                    displayMode="rotate"
+                    overlappingBehavior="none"
+                    alignment="center"
+                    [rotationAngle]="-30"
+                    >
+                    <dxo-font [size]="12"></dxo-font>
+                </dxo-label>
+            </dxo-argument-axis>
+        </dx-chart>
+        <dx-button class="button-container"
+                text="Back"
+                icon="chevronleft"
+                [visible]="!isFirstLevel"
+                (onClick)="onButtonClick()">
+        </dx-button>
+      </mat-expansion-panel> -->
                     <mat-expansion-panel [disabled]="chosenFilters.length === 0" 
                            [expanded]="chosenFilters.length !== 0">
         <mat-expansion-panel-header class="noSelect">
@@ -73,7 +106,7 @@
                  matBadgeSize="medium" 
                  matBadgeOverlap="false"
                  [ngClass]="{'noFilters': chosenFilters.length === 0}"></div>
-            <span [ngClass]="{'includeMargin': chosenFilters.length === 0}">Selected filters</span> 
+            <span [ngClass]="{'includeMargin': chosenFilters.length === 0}">Selezionati</span> 
           </mat-panel-title>
         </mat-expansion-panel-header>
         <mat-nav-list class="noSelect">
@@ -117,35 +150,36 @@
                         <div class="employee">
                             <mat-icon class="listIcon top">person_outlined</mat-icon><span class="workerId">{{item.lavMatricola}}</span><br>
                             <span class="workerId worker">{{item.lavCognome}} {{item.lavNome}}</span><br><br>
-                            <mat-icon class="listIcon">business</mat-icon><span class="companyId"><span class="descr">Company ID:</span> {{item.socDescbreve}}</span>
-                        </div>
-                        <div class="costCentre">
-                            <span class="cdcTitle"><mat-icon class="cdcInfo" svgIcon="sitemap"></mat-icon><span class="cdcId"><span class="descr">Cost centre ID:</span> {{item.codCdc}}</span></span><br>
-                            <span class="cdcDescription"><span class="descr">Description:</span> {{item.cdcDescrizione}}</span><br>
-                            <span class="cdcResp"><span class="descr">Responsible:</span> {{item.cdcResponsabile}} - {{item.cdcRespCognome}} {{item.cdcRespNome}}</span><br>
-                            <span class="cdcSegment" *ngIf="item.cdcConsolidationSegment"><span class="descr">Segment:</span> {{item.cdcConsolidationSegment}}</span>
-                        </div>
-                        <div class="spacer"></div>
-                        <div class="date">
-                            <span class="dateTitle"><mat-icon class="listIcon">date_range</mat-icon><span class="dateDescr">Date:</span></span><br>
-                            <span class="yearMonthDay">{{item.rapGiorno}}/{{item.rapMese}}/{{item.rapAnno}}</span><br>
-                        </div>
-                        <div class="secondSign">
-                            <span *ngFor="let sign of item.f1">
-                                    <span class="secondSignTitle" *ngIf="sign"><mat-icon class="listIcon">done</mat-icon><span class="descr">First sign:</span></span><br *ngIf="sign">
-                                    <span class="secondSignId" *ngIf="sign">{{sign.matr}} - {{sign.conome | slice:1:end}}</span><br *ngIf="sign">
-                            </span>
-                            <span class="secondSignTitle"><mat-icon class="listIcon">done_all</mat-icon><span class="descr">Second sign:</span></span><br>
-                            <span class="secondSignId">{{item.f2Matricola}} - {{item.f2Cognome}} {{item.f2Nome}}</span><br>
+                            <mat-icon class="noteIcon" *ngIf="item.nota">comment</mat-icon><span class="absoluteNote descrNote" *ngIf="item.nota">Nota:</span><br *ngIf="item.nota"><span class="absoluteNote" *ngIf="item.nota">{{item.nota}}</span>
                         </div>
                         <div class="amountDiv">
-                            <span class="amount" [ngClass]="{'importoValuta': !item.importoValuta}"><span class="descrAmount">Amount:</span> {{item.varieImporto | currency:'EUR':'':'1.2-2':'it' }}</span><br>
-                            <span class="currency" *ngIf="item.divCodice"><span class="descrAmount">Currency:</span> {{item.divCodice}}</span><br>
+                            <mat-icon class="listIcon">date_range</mat-icon><span class="yearMonthDay">{{item.rapGiorno}}/{{item.rapMese}}/{{item.rapAnno}}</span><br><br>
+                            <span class="amount" [ngClass]="{'importoValuta': !item.importoValuta}"><span class="descrAmount">Importo:</span> {{item.varieImporto | currency:'EUR':'':'1.2-2':'it' }}<span class="importoValuta" *ngIf="!item.importoValuta">€</span></span><br>
+                            <span class="currency" *ngIf="item.divCodice"><span class="descrAmount">Valuta:</span> {{item.divCodice}}</span><br>
                             <span class="importoValuta" *ngIf="item.importoValuta"><span class="descrAmount">In EUR:</span> {{item.importoValuta | currency:'EUR':'symbol':'1.2-2':'it'}}</span>
                         </div>
-                    </div>
-                    <div class="note" *ngIf="item.nota">
-                        <mat-icon class="noteIcon">comment</mat-icon><span class="absoluteNote" *ngIf="item.nota"><span class="descrNote">Note:</span> {{item.nota}}</span>
+                        <div class="costCentre">
+                            <span class="cdcTitle"><mat-icon class="cdcInfo" svgIcon="sitemap"></mat-icon><span class="cdcId"><span class="descr">Centro di costo:</span> {{item.codCdc}}</span></span><br>
+                            <mat-icon class="listIcon">description</mat-icon><span class="cdcDescription"><span class="descr">Descr:</span> {{item.cdcDescrizione}}</span><br>
+                            <mat-icon class="listIcon">visibility</mat-icon><span class="cdcResp"><span class="descr">Responsabile:</span> {{item.cdcResponsabile}} - {{item.cdcRespCognome}} {{item.cdcRespNome}}</span><br>
+                            <mat-icon class="listIcon" *ngIf="item.cdcConsolidationSegment">widgets</mat-icon><span class="cdcSegment" *ngIf="item.cdcConsolidationSegment"><span class="descr">Segmento:</span> {{item.cdcConsolidationSegment}}</span><br *ngIf="item.cdcConsolidationSegment">
+                            <mat-icon class="listIcon">business</mat-icon><span class="companyId"><span class="descr">Societa:</span> {{item.socDescbreve}}</span>
+                        </div>
+                        <div class="costCenterSmallScreen">
+                            <span class="cdcTitle">
+                                <mat-icon class="cdcInfo" svgIcon="sitemap"></mat-icon>
+                                <span class="cdcId">{{item.codCdc}}</span>
+                            </span>
+                        </div>
+                        <div class="spacer"></div>
+                        <div class="secondSign">
+                            <span *ngFor="let sign of item.f1">
+                                    <span class="secondSignTitle" *ngIf="sign"><mat-icon class="listIcon">done</mat-icon><span class="descr">Prima Firma:</span></span><br *ngIf="sign">
+                                    <span class="secondSignId" *ngIf="sign">{{sign.matr}} - {{sign.conome | slice:1:end}}</span><br *ngIf="sign">
+                            </span>
+                            <span class="secondSignTitle"><mat-icon class="listIcon">done_all</mat-icon><span class="descr">Seconda Firma:</span></span><br>
+                            <span class="secondSignId">{{item.f2Matricola}} - {{item.f2Cognome}} {{item.f2Nome}}</span><br>
+                        </div>
                     </div>
                 </div>
             </cdk-virtual-scroll-viewport>

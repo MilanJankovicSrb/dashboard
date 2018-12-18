@@ -6,7 +6,7 @@
 }
 .title {
     margin-left: 14px;
-    margin-right: 7px;
+    margin-right: 28px;
     letter-spacing: 1px;
     font-size: 24px;
 }
@@ -22,7 +22,7 @@
     bottom: 0px !important;
 }
 ::ng-deep .mat-autocomplete-panel {
-    max-height: 500px !important;
+    max-height: 600px !important;
 }
 .searchField {
     height: 44px !important;
@@ -74,7 +74,7 @@
     color: white !important;
 }
 ::ng-deep .mat-input-element {
-    caret-color: white !important;
+    caret-color: black !important;
 }
 ::ng-deep .mat-form-field-label {
     color: rgba(255, 255, 255, 0.9) !important;
@@ -83,7 +83,7 @@
     color: white !important;
 }
 .option {
-    height: 60px !important;
+    height: 52px !important;
     padding: 0 17px;
 }
 .employee {
@@ -96,7 +96,7 @@
     font-weight: bold;
     color: rgb(141, 0, 0);
     display: inline-block;
-    width: 7%;
+    width: 9%;
 }
 .note {
     font-style:italic;

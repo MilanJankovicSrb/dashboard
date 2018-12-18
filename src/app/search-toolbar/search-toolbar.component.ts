@@ -11,10 +11,12 @@ import { debounceTime } from 'rxjs/operators';
 export class SearchToolbarComponent implements OnInit {
   value = new FormControl('');
   autocompleteList = [];
+  cdcAutocompleteList = [];
   searchColor: string;
   iconColor: string;
 
-  constructor(private service: DashboardService) { }
+  constructor(private service: DashboardService) {
+   }
 
   ngOnInit() {
     this.value.valueChanges
@@ -25,8 +27,12 @@ export class SearchToolbarComponent implements OnInit {
           this.service.getAutocompleteList(res).subscribe(response => {
             this.autocompleteList = response['data'];
           });
+          this.service.getCdcAutocompleteList(res).subscribe(respond => {
+            this.cdcAutocompleteList = respond['facetOptions'];
+          });
         } else {
           this.autocompleteList = [];
+          this.cdcAutocompleteList = [];
         }
       });
   }
@@ -37,8 +43,12 @@ export class SearchToolbarComponent implements OnInit {
 
   selectOption(slicedSearch: string, fullSearch: string) {
     const temp = {'value': slicedSearch, 'descr': fullSearch};
-    console.log(temp);
     this.service.setValueSearch(temp);
+  }
+
+  sendSelectedFacet(category: string, recCode: string, recDescr: string) {
+    const temp = {cat: category, code: recCode, descr: recDescr};
+    this.service.setFilterSearch(temp);
   }
 
   onFocus() {
@@ -48,5 +58,9 @@ export class SearchToolbarComponent implements OnInit {
   onFocusOut() {
     this.searchColor = 'rgb(2, 107, 170)';
     this.iconColor = 'white';
+  }
+
+  trackByFn(index, item) {
+    return index;
   }
 }

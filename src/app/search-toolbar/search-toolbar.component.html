@@ -17,11 +17,23 @@
                         [matRippleRadius]="20"
                         [ngStyle]="{'color': iconColor}"
                         (click)="cleanValue();"
+                        matTooltip="Cancella tutto"
                         >close</mat-icon>
         </mat-form-field>
         <mat-autocomplete #auto="matAutocomplete">
-            <mat-option class="option" *ngFor="let option of autocompleteList" [value]="option.nota" (click)="selectOption(value.value.slice(0, 12), value.value)">
-                <span class="employee">{{option.lavMatricola}} - {{option.lavCognome}} {{option.lavNome}}</span>Amount:<span class="amount"> {{option.varieImporto}}</span><span class="note">Note: {{option.nota | titlecase}}</span></mat-option>
+            <mat-option class="option" *ngFor="let option of autocompleteList" [value]="option.nota" (click)="selectOption(value.value.slice(0, 20), value.value)">
+                <span class="employee">{{option.lavMatricola}} - {{option.lavCognome}} {{option.lavNome}}</span>Amount:<span class="amount"> {{option.varieImporto}}</span><span class="note">Note: {{option.nota | titlecase}}</span>
+            </mat-option>
+            <mat-optgroup *ngIf="cdcAutocompleteList.length" 
+                      [label]="'Centro di costo'">
+            <mat-option #option 
+                      class="option" 
+                      value="{{item.code}} - {{item.descr}}" 
+                      *ngFor="let item of cdcAutocompleteList; trackBy: trackByFn;" 
+                      (click)="sendSelectedFacet('cdc',item.code, item.descr)">
+            <mat-icon svgIcon="sitemap"></mat-icon>({{item.count}}) {{item.code}} - {{item.descr}}
+          </mat-option>
+        </mat-optgroup>
         </mat-autocomplete>
         <div class="iconsDiv">
             <button mat-icon-button class="iconButton">

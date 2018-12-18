@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms';
-import { DashboardService } from './../dashboard.service';
-import { Component, OnInit, OnDestroy, ChangeDetectorRef, AfterViewChecked, ViewChild } from '@angular/core';
+import { DashboardService, /* DataItem */ } from './../dashboard.service';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { PageEvent, MatPaginator } from '@angular/material';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
@@ -15,6 +15,12 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
   mobileQuery: MediaQueryList;
 
   private _mobileQueryListener: () => void;
+  // tslint:disable:max-line-length
+  // CHART VARIABLES
+  /* dataSource: DataItem[];
+  colors: string[];
+  isFirstLevel: boolean; */
+  // CHART VARIABLES
 
   length = 100;
   pageSize = 50;
@@ -51,7 +57,8 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
   loading = false;
   public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private service: DashboardService) {
+
+  constructor(private changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private service: DashboardService/* , element: ElementRef */) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -59,6 +66,10 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.selectedFacets[i['code']] = [];
       this.numMore[i['code']] = 1;
     }
+
+    /* this.dataSource = service.filterData(""); */
+    /* this.colors = service.getColors();
+    this.isFirstLevel = true; */
   }
 
   ngOnInit(): void {
@@ -67,9 +78,58 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.loadList(this.pageSize, this.pageIndex);
       this.loadFacets();
     });
+    this.service.searchFilter$.subscribe(respond => {
+      if (respond.length !== 0) {
+        const index = this.selectedFacets[respond['cat']].indexOf(respond['code']);
+        if (index === -1) {
+          this.selectedFacets[respond['cat']].push(respond['code']);
+          const iconIndex = this.facetCategories.findIndex(i => i['code'] === respond['cat']);
+          this.moveToChosen(respond, respond['cat'], this.facetCategories[iconIndex]['icon']);
+          this.loadList(this.pageSize, this.pageIndex);
+          this.loadFacets();
+        }
+      }
+    });
     this.loadList(this.pageSize, this.pageIndex);
     this.loadFacets();
   }
+
+  // CHART METHODES
+  /* onButtonClick() {
+    if (!this.isFirstLevel) {
+        this.isFirstLevel = true;
+        this.dataSource = this.service.filterData("");
+    }
+  }
+
+  onPointClick(e) {
+      if (this.isFirstLevel) {
+          this.isFirstLevel = false;
+          this.dataSource = this.service.filterData(e.target.originalArgument);
+      } else {
+        console.log(e);
+      }
+  }
+
+  customizePoint = () => {
+      let pointSettings: any;
+
+      pointSettings = {
+          color: this.colors[Number(this.isFirstLevel)]
+      };
+
+      if (!this.isFirstLevel) {
+          pointSettings.hoverStyle = {
+              hatching: "none"
+          };
+      }
+
+      return pointSettings;
+  } */
+
+  // CHART METHODES
+
+
 
   setPageSizeOptions(setPageSizeOptionsInput: string) {
     this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
@@ -95,6 +155,14 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
         this.service.getFacets(entry['code'], this.numMore[entry['code']], this.selectedFacets, this.searchText).subscribe(response => {
           this.facetOptions[entry['code']] = response['facetOptions'];
           this.hasMore[entry['code']] = response['hasMore'];
+          /* if (entry['code'] === 'mon') {
+            let temp: DataItem[] = [];
+            for (const item of this.facetOptions[entry['code']]) {
+              let tempObject = { arg: item['code'], val: item['count'], parentID: '' };
+              temp.push(tempObject);
+            }
+            this.dataSource = temp;
+          } */
         });
     }
   }
@@ -153,7 +221,10 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
     } else {
       this.numMore[cat] = 1;
     }
-    this.loadFacets();
+    this.service.getFacets(cat, this.numMore[cat], this.selectedFacets, this.searchText).subscribe(res => {
+      this.facetOptions[cat] = res['facetOptions'];
+        this.hasMore[cat] = res['hasMore'];
+    });
   }
 
   resetAll() {

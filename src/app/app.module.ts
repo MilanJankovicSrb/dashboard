@@ -7,14 +7,16 @@ import { MaterialModule } from './material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { NgxLoadingModule } from 'ngx-loading';
+import { DxChartModule, DxButtonModule } from 'devextreme-angular';
 
 
 import { AppComponent } from './app.component';
 import { SearchToolbarComponent } from './search-toolbar/search-toolbar.component';
 import { ContentComponent } from './content/content.component';
-import { MatIconRegistry } from '@angular/material';
+import { MatIconRegistry, MatPaginatorIntl } from '@angular/material';
 import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/it';
+import { MatPaginatorIntlIta } from './content/customPaginatorLabels';
 
 @NgModule({
   declarations: [
@@ -30,9 +32,16 @@ import localeIt from '@angular/common/locales/it';
     FormsModule,
     HttpClientModule,
     ScrollDispatchModule,
-    NgxLoadingModule.forRoot({})
+    NgxLoadingModule.forRoot({}),
+    DxChartModule,
+    DxButtonModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: MatPaginatorIntl,
+      useClass: MatPaginatorIntlIta
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
