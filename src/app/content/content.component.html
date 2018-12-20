@@ -32,6 +32,7 @@
                         matListIcon></mat-icon>
             </button>
         </div>
+        <div class="spacerInToolbar"></div>
         <div class="sortAndOrder">
             <button mat-icon-button class="sortButton" (click)="ascending = !ascending; loadList(pageSize, pageIndex);">
                 <mat-icon svgIcon="arrow-collapse-up" 
@@ -64,7 +65,7 @@
     <mat-sidenav-container class="sidenav-container"
                             [style.marginTop.px]="mobileQuery.matches ? 0 : 0">
         <mat-sidenav #snav class="facetsSidenav" [mode]="mobileQuery.matches ? 'over' : 'side'"
-                    [fixedInViewport]="mobileQuery.matches" fixedTopGap="104" [opened]="mobileQuery.matches ? 'false' : 'true'">
+                    [fixedInViewport]="mobileQuery.matches" fixedTopGap="89" [opened]="mobileQuery.matches ? 'false' : 'true'">
         <!-- <mat-expansion-panel [expanded]="true">
          <mat-expansion-panel-header class="noSelect">
           <mat-panel-title>
@@ -150,7 +151,7 @@
                         <div class="employee">
                             <mat-icon class="listIcon top">person_outlined</mat-icon><span class="workerId">{{item.lavMatricola}}</span><br>
                             <span class="workerId worker">{{item.lavCognome}} {{item.lavNome}}</span><br><br>
-                            <mat-icon class="noteIcon" *ngIf="item.nota">comment</mat-icon><span class="absoluteNote descrNote" *ngIf="item.nota">Nota:</span><br *ngIf="item.nota"><span class="absoluteNote" *ngIf="item.nota">{{item.nota}}</span>
+                            <span class="noteBackground"><mat-icon class="noteIcon" *ngIf="item.nota">comment</mat-icon><span class="absoluteNote descrNote" *ngIf="item.nota">Nota:</span><br *ngIf="item.nota"><span class="absoluteNote" *ngIf="item.nota">{{item.nota}}</span></span>
                         </div>
                         <div class="amountDiv">
                             <mat-icon class="listIcon">date_range</mat-icon><span class="yearMonthDay">{{item.rapGiorno}}/{{item.rapMese}}/{{item.rapAnno}}</span><br><br>
@@ -165,20 +166,29 @@
                             <mat-icon class="listIcon" *ngIf="item.cdcConsolidationSegment">widgets</mat-icon><span class="cdcSegment" *ngIf="item.cdcConsolidationSegment"><span class="descr">Segmento:</span> {{item.cdcConsolidationSegment}}</span><br *ngIf="item.cdcConsolidationSegment">
                             <mat-icon class="listIcon">business</mat-icon><span class="companyId"><span class="descr">Societa:</span> {{item.socDescbreve}}</span>
                         </div>
+                        <div class="spacerSmall"></div>
                         <div class="costCenterSmallScreen">
                             <span class="cdcTitle">
                                 <mat-icon class="cdcInfo" svgIcon="sitemap"></mat-icon>
                                 <span class="cdcId">{{item.codCdc}}</span>
                             </span>
+                            <div class="signsSmallScreen">
+                                <span class="signSmallDescr" *ngIf="item.f1"><mat-icon class="listIcon">done</mat-icon><span class="descr">Prima Firma:</span></span>
+                                <span *ngFor="let sign of item.f1">
+                                    <span class="signSmall" *ngIf="sign">{{sign.matr}} - {{sign.conome | slice:1:end}}</span><br *ngIf="sign">
+                                </span>
+                                <span class="signSmallDescr"><mat-icon class="listIcon">done_all</mat-icon><span class="descr">Seconda Firma:</span></span>
+                                <span class="signSmall">{{item.f2Matricola}} - {{item.f2Cognome}} {{item.f2Nome}}</span>
+                            </div>
                         </div>
-                        <div class="spacer"></div>
+                        <div class="spacer none"></div>
                         <div class="secondSign">
                             <span *ngFor="let sign of item.f1">
                                     <span class="secondSignTitle" *ngIf="sign"><mat-icon class="listIcon">done</mat-icon><span class="descr">Prima Firma:</span></span><br *ngIf="sign">
                                     <span class="secondSignId" *ngIf="sign">{{sign.matr}} - {{sign.conome | slice:1:end}}</span><br *ngIf="sign">
                             </span>
                             <span class="secondSignTitle"><mat-icon class="listIcon">done_all</mat-icon><span class="descr">Seconda Firma:</span></span><br>
-                            <span class="secondSignId">{{item.f2Matricola}} - {{item.f2Cognome}} {{item.f2Nome}}</span><br>
+                            <span class="secondSignId">{{item.f2Matricola}} - {{item.f2Cognome}} {{item.f2Nome}}</span>
                         </div>
                     </div>
                 </div>

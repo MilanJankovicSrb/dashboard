@@ -1,12 +1,36 @@
-@media only screen and (min-width: 480px) {
+@media only screen and (max-width: 499px) {
+    .sortAndOrder {
+        display: none !important;
+    }
+}
+@media only screen and (max-width: 599px) {
+    .orderText {
+        display: none !important;
+    }
+}
+@media only screen and (max-width: 840px) {
+    .sidenavControl {
+        width: 100px !important;
+    }
+    .spacerInToolbar {
+        display: flex !important;
+    }
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (max-width: 904px) {
+    ::ng-deep .mat-paginator-page-size {
+        display: none !important;
+    }
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (max-width: 1048px) {
+    ::ng-deep .mat-paginator-range-label {
+        display: none;
+    }
 }
-
+@media only screen and (max-width: 1200px) {
+    
+}
 @media only screen and (max-width: 1240px) {
     .paginator {
         padding: 0 0 0 14px !important;
@@ -17,6 +41,20 @@
 @media only screen and (max-width: 1270px) {
     ::ng-deep .mat-paginator-page-size-label {
         display: none;
+    }
+}
+@media only screen and (max-width: 1400px) {
+    .signsSmallScreen {
+        display: grid !important;
+    }
+    .secondSign {
+        display: none !important;
+    }
+    .spacer.none {
+        display: none !important;
+    }
+    .spacerSmall {
+        display: flex !important;
     }
 }
 @media only screen and (max-width: 1580px) {
@@ -31,6 +69,17 @@
     display: none;
     height: 159px;
     margin-left: 3%;
+    white-space: nowrap;
+
+}
+.signsSmallScreen {
+    display: none;
+    min-width: 280px;
+    margin: 0;
+}
+.signSmall {
+    font-weight: bold;
+    letter-spacing: 0.8px;
 }
 .container {
     display: flex;
@@ -77,6 +126,14 @@
 }
 .spacer {
     flex: 1 1 auto;
+}
+.spacerSmall {
+    flex: 1 1 auto;
+    display: none;
+}
+.spacerInToolbar {
+    flex: 1 1 auto;
+    display: none;
 }
 .arrows {
     position: relative;
@@ -187,6 +244,8 @@
     margin-left: 10px;
     padding-top: 5px;
     margin-right: 5px;
+    width: 360px;
+    min-width: 359px;
 }
 .amountDiv span {
     line-height: 30px;
@@ -209,11 +268,10 @@
 .secondSign, .secondSignTitle, .secondSignId {
     width: 300px;
 }
-.employee {
-    width: 360px;
-}
+
 .amountDiv {
     width: 170px;
+    min-width: 169px;
     padding: 4px 0;
 }
 .descr {
@@ -306,7 +364,7 @@ span {
     color: rgba(128, 0, 0, 0.712);
     position: relative;
     left: 0px;
-    bottom: 14px;
+    bottom: 2px;
     text-overflow: ellipsis;
     overflow: hidden;
 }
@@ -334,8 +392,11 @@ span {
     font-size: 22px;
     position: relative;
     left: -1px;
-    top: -12px;
     color: rgba(128, 0, 0, 0.712);
+}
+.noteBackground {
+    position: relative;
+    bottom: 8px;
 }
 ::ng-deep .mat-drawer-inner-container {
     overflow-y: scroll !important;

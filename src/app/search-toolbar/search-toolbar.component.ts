@@ -42,7 +42,7 @@ export class SearchToolbarComponent implements OnInit {
   }
 
   selectOption(slicedSearch: string, fullSearch: string) {
-    const temp = {'value': slicedSearch, 'descr': fullSearch};
+    const temp = {'code': 'note', 'value': slicedSearch, 'descr': fullSearch};
     this.service.setValueSearch(temp);
   }
 

@@ -122,6 +122,5 @@ export class DashboardService {
 
   setFilterSearch(value) {
     this._searchFilter.next(value);
-    console.log(this._searchFilter);
   }
 }

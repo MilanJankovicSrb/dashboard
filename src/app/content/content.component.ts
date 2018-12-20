@@ -75,6 +75,7 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
   ngOnInit(): void {
     this.service.searchValue$.subscribe(res => {
       this.searchText = res;
+      this.moveToChosen(res, 'note', 'comment');
       this.loadList(this.pageSize, this.pageIndex);
       this.loadFacets();
     });
@@ -191,12 +192,16 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   deselectFacet(item) {
     const index = this.chosenFilters.findIndex(i => i.code === item.code);
-    const indexInSelected = this.selectedFacets[item.cat].indexOf(item.code);
     if (index !== -1) {
       this.chosenFilters.splice(index, 1);
     }
-    if (indexInSelected !== -1) {
-      this.selectedFacets[item.cat].splice(indexInSelected, 1);
+    if (item.cat !== 'note') {
+      const indexInSelected = this.selectedFacets[item.cat].indexOf(item.code);
+      if (indexInSelected !== -1) {
+        this.selectedFacets[item.cat].splice(indexInSelected, 1);
+      }
+    } else {
+      this.searchText = '';
     }
     this.loadList(this.pageSize, this.pageIndex);
     this.loadFacets();
@@ -205,7 +210,9 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
   moveToChosen(item, cat, icon) {
     const index = this.chosenFilters.findIndex(i => i.code === item.code);
     if (index === -1) {
-      this.chosenFilters.push({'cat': cat, 'icon': icon, 'descr' : item.descr, 'code': item.code});
+      if (!(cat === 'note' && item.descr === undefined)) {
+        this.chosenFilters.push({'cat': cat, 'icon': icon, 'descr' : item.descr, 'code': item.code});
+      }
     } else {
       this.chosenFilters.splice(index, 1);
     }
