@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { NgxLoadingModule } from 'ngx-loading';
 import { DxChartModule, DxButtonModule } from 'devextreme-angular';
+import { Ng5SliderModule } from 'ng5-slider';
 
 
 import { AppComponent } from './app.component';
@@ -34,7 +35,8 @@ import { MatPaginatorIntlIta } from './content/customPaginatorLabels';
     ScrollDispatchModule,
     NgxLoadingModule.forRoot({}),
     DxChartModule,
-    DxButtonModule
+    DxButtonModule,
+    Ng5SliderModule
   ],
   providers: [
     {

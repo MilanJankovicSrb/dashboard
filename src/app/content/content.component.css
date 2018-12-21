@@ -1,464 +1,715 @@
 @media only screen and (max-width: 499px) {
-    .sortAndOrder {
-        display: none !important;
-    }
+  .sortAndOrder {
+    display: none !important;
+  }
 }
+
 @media only screen and (max-width: 599px) {
-    .orderText {
-        display: none !important;
-    }
+  .orderText {
+    display: none !important;
+  }
 }
+
 @media only screen and (max-width: 840px) {
-    .sidenavControl {
-        width: 100px !important;
-    }
-    .spacerInToolbar {
-        display: flex !important;
-    }
+  .sidenavControl {
+    width: 100px !important;
+  }
+
+  .spacerInToolbar {
+    display: flex !important;
+  }
 }
 
 @media only screen and (max-width: 904px) {
-    ::ng-deep .mat-paginator-page-size {
-        display: none !important;
-    }
+  ::ng-deep .mat-paginator-page-size {
+    display: none !important;
+  }
+}
+
+@media only screen and (max-width: 951px) {
+  .smallestInfo {
+    display: block !important;
+    height: 26px;
+  }
+
+  .listItem {
+    height: 189px !important;
+  }
+
+  .amountDiv {
+    display: none !important;
+  }
+
+  .importoValuta {
+    margin-left: 50px !important;
+  }
+
+  .withMargin {
+    margin-left: 8px;
+  }
+
+  .employee {
+    width: 100% !important;
+  }
+
+  .noMargin {
+    margin: 0 !important;
+  }
 }
 
 @media only screen and (max-width: 1048px) {
-    ::ng-deep .mat-paginator-range-label {
-        display: none;
-    }
+  ::ng-deep .mat-paginator-range-label {
+    display: none;
+  }
+
+  .whenSignInAmount,
+  .secondSignInAmount,
+  .secondSignIdInAmount {
+    text-align: left !important;
+  }
+
+  .amountDiv {
+    width: 220px !important;
+    min-width: 219px !important;
+  }
 }
+
+@media only screen and (min-width: 1049px) and (max-width: 1200px) {
+  .amountDiv {
+    width: 300px !important;
+    min-width: 299px !important;
+  }
+
+  .whenSignInAmount,
+  .secondSignInAmount,
+  .secondSignIdInAmount {
+    text-align: end;
+  }
+}
+
 @media only screen and (max-width: 1200px) {
-    
+
+  .whenSignInAmount,
+  .secondSignInAmount,
+  .secondSignIdInAmount {
+    display: block !important;
+  }
+
+  .hideWhenSignComes {
+    display: none !important;
+  }
+
+  .amountDiv span {
+    line-height: 22px !important;
+  }
+
+  .costCenterSmallScreen {
+    display: none !important;
+  }
+
+  .costCentre {
+    display: none;
+  }
+
+  .spacerSmallest {
+    display: flex !important;
+  }
+
+  .spacerSmall {
+    display: none !important;
+  }
+
+  .workerId {
+    font-size: 26px !important;
+  }
+
+  .employee span {
+    line-height: 21px !important;
+  }
 }
+
 @media only screen and (max-width: 1240px) {
-    .paginator {
-        padding: 0 0 0 14px !important;
-        width: calc(100% - 14px) !important;
-    }
+  .paginator {
+    padding: 0 0 0 14px !important;
+    width: calc(100% - 14px) !important;
+  }
 }
 
 @media only screen and (max-width: 1270px) {
-    ::ng-deep .mat-paginator-page-size-label {
-        display: none;
-    }
-}
-@media only screen and (max-width: 1400px) {
-    .signsSmallScreen {
-        display: grid !important;
-    }
-    .secondSign {
-        display: none !important;
-    }
-    .spacer.none {
-        display: none !important;
-    }
-    .spacerSmall {
-        display: flex !important;
-    }
-}
-@media only screen and (max-width: 1580px) {
-    .costCentre {
-        display: none;
-    }
-    .costCenterSmallScreen {
-        display: inline !important;
-    }
-}
-.costCenterSmallScreen {
+  ::ng-deep .mat-paginator-page-size-label {
     display: none;
-    height: 159px;
-    margin-left: 3%;
-    white-space: nowrap;
+  }
+}
+
+@media only screen and (max-width: 1400px) {
+  .signsSmallScreen {
+    display: grid !important;
+  }
+
+  .secondSign {
+    display: none !important;
+  }
+
+  .spacer.none {
+    display: none !important;
+  }
+}
+
+@media only screen and (min-width: 1201px) and (max-width: 1400px) {
+  .spacerSmall {
+    display: flex !important;
+  }
+}
+
+@media only screen and (min-width: 1201px) and (max-width: 1580px) {
+  .costCentre {
+    display: none;
+  }
+
+  .costCenterSmallScreen {
+    display: inline !important;
+  }
+}
+
+.smallestInfo {
+  display: none;
+}
+
+.whenSignInAmount,
+.secondSignIdInAmount,
+.secondSignInAmount {
+  display: none;
+}
+
+.costCenterSmallScreen {
+  display: none;
+  height: 159px;
+  margin-left: 3%;
+  white-space: nowrap;
 
 }
+
 .signsSmallScreen {
-    display: none;
-    min-width: 280px;
-    margin: 0;
+  display: none;
+  min-width: 280px;
+  margin: 0;
 }
+
 .signSmall {
-    font-weight: bold;
-    letter-spacing: 0.8px;
+  font-weight: bold;
+  letter-spacing: 0.8px;
 }
+
 .container {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 48px;
-    bottom: 0;
-    left: 0;
-    right: 0;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 48px;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
+
 .paginator {
-    height: 40px;
-    width: calc(100% - 24px);
-    padding: 0px 10px 0 14px;
-    background-color: rgb(242, 242, 242);
-    display: flex;
-    border-bottom: 1px solid lightgray;
-} 
+  height: 40px;
+  width: calc(100% - 24px);
+  padding: 0px 10px 0 14px;
+  background-color: rgb(242, 242, 242);
+  display: flex;
+  border-bottom: 1px solid lightgray;
+}
+
 .facetsSidenav {
-    width: 320px;
-    background-color: rgb(242, 242, 242);
+  width: 320px;
+  background-color: rgb(242, 242, 242);
 }
+
 .sidenav-container {
-    flex: 1;
+  flex: 1;
 }
+
 .is-mobile .sidenav-container {
-    flex: 1 0 auto;
+  flex: 1 0 auto;
 }
+
 .noSelect {
-    -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-                user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
+
 .contentContainer {
-    overflow: hidden;
+  overflow: hidden;
 }
+
 ::ng-deep .mat-paginator-container {
-    min-height: 40px !important;
-    height: 40px !important;
-    background-color: rgb(242, 242, 242);
+  min-height: 40px !important;
+  height: 40px !important;
+  background-color: rgb(242, 242, 242);
 }
+
 .spacer {
-    flex: 1 1 auto;
+  flex: 1 1 auto;
 }
-.spacerSmall {
-    flex: 1 1 auto;
-    display: none;
+
+.spacerSmall,
+.spacerInToolbar,
+.spacerSmallest {
+  flex: 1 1 auto;
+  display: none;
 }
-.spacerInToolbar {
-    flex: 1 1 auto;
-    display: none;
-}
+
 .arrows {
-    position: relative;
-    transform: scale(0.7);
-    top: 2px;
-    color: rgb(115, 115, 115);
+  position: relative;
+  transform: scale(0.7);
+  top: 2px;
+  color: rgb(115, 115, 115);
 }
+
 .filter {
-    position: relative;
-    right: 15px;
-    color: rgb(115, 115, 115);
+  position: relative;
+  right: 15px;
+  color: rgb(115, 115, 115);
 }
+
 .filterReset {
-    position: relative;
-    left: 3px;
-    color: rgb(115, 115, 115);
+  position: relative;
+  left: 3px;
+  color: rgb(115, 115, 115);
 }
+
 .reset {
-    position: relative;
-    transform: scale(0.6);
-    right: 12px;
-    top: 2px;
-    color: rgb(115, 115, 115);
+  position: relative;
+  transform: scale(0.6);
+  right: 12px;
+  top: 2px;
+  color: rgb(115, 115, 115);
 }
+
 .sidenavControl {
-    width: 325px;
+  width: 325px;
 }
+
 .sortIcon {
-    transform: scale(0.9);
-    color: rgb(111, 111, 111);
+  transform: scale(0.9);
+  color: rgb(111, 111, 111);
 }
+
 .sortButton {
-    position: relative;
-    right: 10px;
-    color: rgb(111, 111, 111);
+  position: relative;
+  right: 10px;
+  color: rgb(111, 111, 111);
 }
+
 ::ng-deep .orderByPanel.mat-select-panel {
-    background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.9);
 }
+
 .sortAndOrder {
-    display: flex;
+  display: flex;
 }
+
 ::ng-deep .orderBy .mat-form-field-wrapper {
-    font-size: 13px !important;
+  font-size: 13px !important;
 }
+
 .orderText {
-    margin-right: 10px;
-    font-size: 14px;
-    position: relative;
-    top: 15px;
-    color: rgb(111, 111, 111);
+  margin-right: 10px;
+  font-size: 14px;
+  position: relative;
+  top: 15px;
+  color: rgb(111, 111, 111);
 }
+
 ::ng-deep .orderByPanel .mat-option-text {
-    font-size: 14px;
+  font-size: 14px;
 }
+
 .mat-expansion-panel {
-    border-bottom: 1px solid rgba(211, 211, 211, 0.921);
-    background-color: rgba(255, 255, 255, 0.2) !important; 
-    box-shadow: 0 0px 0px 0px rgba(0,0,0,.2), 0 0px 0px 0 rgba(0,0,0,.14), 0 0px 0px 0 rgba(0,0,0,.12) !important;
+  border-bottom: 1px solid rgba(211, 211, 211, 0.921);
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 0px 0px 0px rgba(0, 0, 0, .2), 0 0px 0px 0 rgba(0, 0, 0, .14), 0 0px 0px 0 rgba(0, 0, 0, .12) !important;
 }
+
 .mat-expansion-panel-header {
-    padding: 0 10px 0 20px !important;
+  padding: 0 10px 0 20px !important;
 }
+
 .mat-expansion-panel-header-title {
-    line-height: 24px !important;
+  line-height: 24px !important;
 }
+
 ::ng-deep .mat-expansion-panel-body {
-    padding: 0 0px 16px 0px !important;
-    margin-left: -4px;
+  padding: 0 0px 16px 0px !important;
+  margin-left: -4px;
 }
+
 .mat-list-base {
-    padding-top: 0px !important;
+  padding-top: 0px !important;
 }
+
 ::ng-deep .mat-list-item {
-    height: 40px !important;
-    border-radius: 15px;
-    margin-bottom: 2px !important;
+  height: 40px !important;
+  border-radius: 15px;
+  margin-bottom: 2px !important;
 }
+
 .viewport {
-    height: calc(100vh - 104px);
-    width: 100%;
+  height: calc(100vh - 89px);
+  width: 100%;
 }
+
 .listItem {
-    display: block;
-    height: 159px;
-    width: calc(100% - 20px);
-    background-color: rgb(255, 255, 255);
-    border-bottom: 1px solid lightgray;
-    border-left: 1px solid lightgray;
-    padding: 5px 20px 5px 10px;
-    border-bottom-left-radius: 7px;
-    border-top-left-radius: 7px;
-    margin-left: -1px;
+  display: block;
+  height: 159px;
+  width: calc(100% - 20px);
+  background-color: rgb(255, 255, 255);
+  border-bottom: 1px solid lightgray;
+  border-left: 1px solid lightgray;
+  padding: 5px 20px 5px 10px;
+  border-bottom-left-radius: 7px;
+  border-top-left-radius: 7px;
+  margin-left: -1px;
 }
+
 .infoDiv {
-    height: 159px;
-    display: flex;
-    width: calc(100% - 20px);
+  height: 159px;
+  display: flex;
+  width: calc(100% - 20px);
 }
+
 .note {
-    height: 20px;
+  height: 20px;
 }
-.employee, .secondSign, .amountDiv, .costCentre {
-    height: 159px;
-    box-sizing: border-box;
-}
-.employee {
-    margin-left: 10px;
-    padding-top: 5px;
-    margin-right: 5px;
-    width: 360px;
-    min-width: 359px;
-}
-.amountDiv span {
-    line-height: 30px;
-}
-.costCentre span {
-    line-height: 24px;
-}
-.secondSign span {
-    line-height: 24px;
-}
-.employee span {
-    line-height: 19px;
-}
+
+.employee,
+.secondSign,
+.amountDiv,
 .costCentre {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    margin-left: 3%;
+  height: 159px;
+  box-sizing: border-box;
 }
-.secondSign, .secondSignTitle, .secondSignId {
-    width: 300px;
+
+.employee {
+  margin-left: 10px;
+  padding-top: 5px;
+  margin-right: 5px;
+  width: 360px;
+  min-width: 359px;
+}
+
+.amountDiv span {
+  line-height: 30px;
+}
+
+.costCentre span {
+  line-height: 24px;
+}
+
+.secondSign span {
+  line-height: 24px;
+}
+
+.employee span {
+  line-height: 19px;
+}
+
+.costCentre {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-left: 3%;
+}
+
+.secondSign,
+.secondSignTitle,
+.secondSignId {
+  width: 300px;
 }
 
 .amountDiv {
-    width: 170px;
-    min-width: 169px;
-    padding: 4px 0;
+  width: 170px;
+  min-width: 169px;
+  padding: 4px 0;
 }
+
 .descr {
-    font-size: 14px;
-    color: gray;
-    font-weight: normal;
-    letter-spacing: normal;
+  font-size: 14px;
+  color: gray;
+  font-weight: normal;
+  letter-spacing: normal;
 }
+
 .descrAmount {
-    font-size: 14px;
-    width: 60px;
-    font-weight: normal;
-    color: gray;
+  font-size: 14px;
+  width: 60px;
+  font-weight: normal;
+  color: gray;
 }
+
 .dateDescr {
-    font-size: 14px;
-    color: gray;
+  font-size: 14px;
+  color: gray;
 }
+
 span {
-    display: inline-block;
-    font-size: 15px;
+  display: inline-block;
+  font-size: 15px;
 }
-.dateTitle, .secondSignTitle, .secondSignId {
-    text-align: center;
-}
+
+.dateTitle,
+.secondSignTitle,
 .secondSignId {
-    color: rgb(97, 97, 97);
-    font-weight: bold;
-    font-size: 16px;
+  text-align: center;
 }
+
+.secondSignId {
+  color: rgb(97, 97, 97);
+  font-weight: bold;
+  font-size: 16px;
+}
+
 .workerId {
-    font-size: 20px;
-    font-weight: bold;
-    color: rgb(2, 120, 189);
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    letter-spacing: 3px;
-    position: relative;
-    top: -5px;
+  font-size: 20px;
+  font-weight: bold;
+  color: rgb(2, 120, 189);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  letter-spacing: 3px;
+  position: relative;
+  top: -5px;
 }
+
 .worker {
-    font-size: 17px;
-    letter-spacing: 1px;
-    left: 0;
+  font-size: 17px;
+  letter-spacing: 1px;
+  left: 0;
 }
+
 .companyId {
-    font-size: 16px;
-    font-weight: bold;
+  font-size: 16px;
+  font-weight: bold;
 }
-.amount, .currency {
-    font-size: 16px;
+
+.amount,
+.currency {
+  font-size: 16px;
 }
+
 .importoValuta {
-    font-size: 21px;
-    font-weight: bold;
-    color: rgba(141, 0, 0, 0.705);
+  font-size: 21px;
+  font-weight: bold;
+  color: rgba(141, 0, 0, 0.705);
 }
+
 .cdcInfo {
-    position: relative;
-    top: 6px;
-    margin-right: 5px;
-    left: -2px;
-    color: rgba(0, 0, 0, 0.608);
+  position: relative;
+  top: 6px;
+  margin-right: 5px;
+  left: -2px;
+  color: rgba(0, 0, 0, 0.608);
 }
+
 .listIcon {
-    position: relative;
-    top: 6px;
-    margin-right: 5px;
-    color: rgba(0, 0, 0, 0.6);
+  position: relative;
+  top: 6px;
+  margin-right: 5px;
+  color: rgba(0, 0, 0, 0.6);
 }
+
 .top {
-    font-size: 29px;
-    top: 0;
-    left: -5px;
-    color: rgb(2, 120, 189);
+  font-size: 29px;
+  top: 0;
+  left: -5px;
+  color: rgb(2, 120, 189);
 }
+
 .cdcId {
-    font-weight: bold;
-    font-size: 20px;
-    letter-spacing: 2px;
+  font-weight: bold;
+  font-size: 20px;
+  letter-spacing: 2px;
 }
+
 .yearMonthDay {
-    font-size: 20px;
-    font-weight: bold;
-    text-align: center; 
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
 }
+
 .absoluteNote {
-    font-size: 17px;
-    color: rgba(128, 0, 0, 0.712);
-    position: relative;
-    left: 0px;
-    bottom: 2px;
-    text-overflow: ellipsis;
-    overflow: hidden;
+  font-size: 17px;
+  color: rgba(128, 0, 0, 0.712);
+  position: relative;
+  left: 0px;
+  bottom: 2px;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
+
 ::ng-deep .mat-form-field-wrapper {
-    padding-bottom: 0;
+  padding-bottom: 0;
 }
+
 .selected {
-    background-color: rgba(2, 120, 189, 0.61) !important;
-    color: white !important;
+  background-color: rgba(2, 120, 189, 0.61) !important;
+  color: white !important;
 }
+
 .cdcTitle {
-    position: relative;
-    left: 2px;
+  position: relative;
+  left: 2px;
 }
+
 ::ng-deep .mat-list-item-ripple.mat-ripple {
-    border-radius: 15px;
+  border-radius: 15px;
 }
+
 .descrNote {
-    opacity: 0.8;
-    font-weight: bold;
-    font-size: 16px;
-    margin-right: 5px;
+  opacity: 0.8;
+  font-weight: bold;
+  font-size: 16px;
+  margin-right: 5px;
 }
+
 .noteIcon {
-    font-size: 22px;
-    position: relative;
-    left: -1px;
-    color: rgba(128, 0, 0, 0.712);
+  font-size: 22px;
+  position: relative;
+  left: -1px;
+  color: rgba(128, 0, 0, 0.712);
 }
+
 .noteBackground {
-    position: relative;
-    bottom: 8px;
+  position: relative;
+  bottom: 8px;
 }
+
 ::ng-deep .mat-drawer-inner-container {
-    overflow-y: scroll !important;
+  overflow-y: scroll !important;
 }
+
 ::ng-deep .mat-drawer-inner-container::-webkit-scrollbar {
-    width: 5px;
+  width: 5px;
 }
+
 ::ng-deep .mat-drawer-inner-container::-webkit-scrollbar-thumb {
-    background: rgba(167, 167, 167, 0.551);
-    border-radius: 20px;
+  background: rgba(167, 167, 167, 0.551);
+  border-radius: 20px;
 }
 
 ::ng-deep .mat-drawer-inner-container::-webkit-scrollbar-track {
-    background: #ddd;
-    border-radius: 20px;
+  background: #ddd;
+  border-radius: 20px;
 }
+
 .showMore {
-    margin: 0 42px;
+  margin: 0 42px;
 }
+
 .mat-expansion-panel-header-title .mat-icon {
-    color: gray;
+  color: gray;
 }
-::ng-deep .mat-toolbar-row, .mat-toolbar-single-row {
-    background-color: rgb(2, 120, 189) !important;
+
+::ng-deep .mat-toolbar-row,
+.mat-toolbar-single-row {
+  background-color: rgb(2, 120, 189) !important;
 }
+
 .noFilters {
-    display: none;
+  display: none;
 }
+
 .includeMargin {
-    margin-left: 30px;
+  margin-left: 30px;
 }
+
 .mat-badge {
-    top: 11px !important;
-    left: 2px !important;
-    margin-right: 30px !important;
+  top: 11px !important;
+  left: 2px !important;
+  margin-right: 30px !important;
 }
+
 .mat-badge-content.mat-badge-active {
-    background-color: #0277bd !important;
+  background-color: #0277bd !important;
 }
+
 .selectedOption {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
+
 .move {
-    font-size: 24px !important;
-    width: 28px !important;
+  font-size: 24px !important;
+  width: 28px !important;
 }
+
 #chart {
-    height: 200px;
-    width: calc(100% - 20px);
-    margin: 0 10px;
+  height: 200px;
+  width: calc(100% - 20px);
+  margin: 0 10px;
 }
 
 ::ng-deep #chart.pointer-on-bars .dxc-series rect {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .button-container {
-    text-align: center;
-    height: 40px;
-    position: absolute;
-    top: 7px;
-    left: 0px;
+  text-align: center;
+  height: 40px;
+  position: absolute;
+  top: 7px;
+  left: 0px;
 }
+.custom-slider {
+  width: 312px !important;
+  box-sizing: border-box;
+  padding: 0 10px 0 24px;
+  height: 80px;
+}
+::ng-deep .custom-slider .ng5-slider .ng5-slider-bar {
+    background: rgba(194, 122, 122, 0.4);
+    height: 2px;
+  }
+  ::ng-deep .custom-slider .ng5-slider .ng5-slider-selection {
+    background: #db0000b4;
+  }
+
+  ::ng-deep .custom-slider .ng5-slider .ng5-slider-pointer {
+    width: 8px;
+    height: 16px;
+    top: auto; /* to remove the default positioning */
+    bottom: 0;
+    background-color: #333;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+  }
+
+  ::ng-deep .custom-slider .ng5-slider .ng5-slider-pointer:after {
+    display: none;
+  }
+
+  ::ng-deep .custom-slider .ng5-slider .ng5-slider-bubble {
+    bottom: 14px;
+  }
+
+  ::ng-deep .custom-slider .ng5-slider .ng5-slider-limit {
+    font-weight: bold;
+    color: #db0000b4;
+  }
+
+  ::ng-deep .custom-slider .ng5-slider .ng5-slider-tick {
+    width: 1px;
+    height: 10px;
+    margin-left: 4px;
+    border-radius: 0;
+    background: rgba(194, 122, 122, 0.4);
+    top: -1px;
+  }
+
+  ::ng-deep .custom-slider .ng5-slider .ng5-slider-tick.ng5-slider-selected {
+    background: #db0000b4;
+  }

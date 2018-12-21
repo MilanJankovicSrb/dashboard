@@ -1,10 +1,13 @@
-import { FormControl } from '@angular/forms';
-import { DashboardService, /* DataItem */ } from './../dashboard.service';
-import { Component, OnInit, OnDestroy, ChangeDetectorRef, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
-import { MediaMatcher } from '@angular/cdk/layout';
-import { PageEvent, MatPaginator } from '@angular/material';
-import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { ngxLoadingAnimationTypes } from 'ngx-loading';
+import { debounceTime } from 'rxjs/operators';
+import {FormControl} from '@angular/forms';
+import {DashboardService,/* DataItem */} from './../dashboard.service';
+import {Component, OnInit, OnDestroy, ChangeDetectorRef, AfterViewChecked, ViewChild, EventEmitter} from '@angular/core';
+import {MediaMatcher} from '@angular/cdk/layout';
+import {PageEvent, MatPaginator} from '@angular/material';
+import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
+import {ngxLoadingAnimationTypes} from 'ngx-loading';
+import { Options, ChangeContext, PointerType } from 'ng5-slider';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-content',
@@ -20,6 +23,34 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
   /* dataSource: DataItem[];
   colors: string[];
   isFirstLevel: boolean; */
+
+  minValue: number = 0;
+  maxValue: number = 5000;
+  manualRefresh: EventEmitter<void> = new EventEmitter<void>();
+  options: Options = {
+    floor: 0,
+    ceil: 5000,
+    step: 50,
+    minRange: 1,
+    pushRange: true,
+    showTicks: true,
+    stepsArray: [
+      {value: 0},
+      {value: 50, legend: '50€'},
+      {value: 250, legend: '250€'},
+      {value: 500, legend: '500€'},
+      {value: 1000, legend: '1000€'},
+      {value: 5000}
+    ],
+    noSwitching: true,
+    translate: (value: number): string => {
+      return '€' + value;
+    },
+    combineLabels: (minValue: string, maxValue: string): string => {
+      return 'tra ' + minValue + ' e ' + maxValue;
+    }
+  };
+
   // CHART VARIABLES
 
   length = 100;
@@ -32,14 +63,43 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
   @ViewChild(CdkVirtualScrollViewport) scroll: CdkVirtualScrollViewport;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  facetCategories: Array<Object> = [
-    { code: 'cdc', descr: 'CdC' , icon: 'sitemap'},
-    { code: 'rcdc', descr: 'Resp. CdC' , icon: 'visibility'},
-    { code: 'amt', descr: 'Importo' , icon: 'euro_symbol'},
-    { code: 'snd', descr: 'Seconda Firma' , icon: 'done_all'},
-    { code: 'soc', descr: 'Societa' , icon: 'business'},
-    { code: 'mon', descr: 'Mese' , icon: 'date_range'},
-    { code: 'lav', descr: 'Lavoratore' , icon: 'person_outline'}
+  $amountRange: Subject<string[]> = new Subject<string[]>();
+
+  facetCategories: Array < Object > = [{
+      code: 'cdc',
+      descr: 'CdC',
+      icon: 'sitemap'
+    },
+    {
+      code: 'rcdc',
+      descr: 'Resp. CdC',
+      icon: 'visibility'
+    },
+    {
+      code: 'amt',
+      descr: 'Importo',
+      icon: 'euro_symbol'
+    },
+    {
+      code: 'snd',
+      descr: 'Seconda Firma',
+      icon: 'done_all'
+    },
+    {
+      code: 'soc',
+      descr: 'Societa',
+      icon: 'business'
+    },
+    {
+      code: 'mon',
+      descr: 'Mese',
+      icon: 'date_range'
+    },
+    {
+      code: 'lav',
+      descr: 'Lavoratore',
+      icon: 'person_outline'
+    }
   ];
   facetOptions: Object = {};
   ascending: boolean = true;
@@ -58,8 +118,8 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
   public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
 
 
-  constructor(private changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private service: DashboardService/* , element: ElementRef */) {
-    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+  constructor(private changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private service: DashboardService /* , element: ElementRef */ ) {
+    this.mobileQuery = media.matchMedia('(max-width: 701px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
     for (const i of this.facetCategories) {
@@ -79,6 +139,13 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.loadList(this.pageSize, this.pageIndex);
       this.loadFacets();
     });
+    this.$amountRange.pipe(debounceTime(300)).subscribe(res => {
+      this.selectedFacets['amt'] = res;
+      const tempItem = { code: 'amt', descr: 'Tra ' + this.minValue + '€ e ' + this.maxValue + '€'};
+      this.moveToChosen(tempItem, 'amt', 'euro_symbol');
+      this.loadList(this.pageSize, this.pageIndex);
+      this.loadFacets();
+    });
     this.service.searchFilter$.subscribe(respond => {
       if (respond.length !== 0) {
         const index = this.selectedFacets[respond['cat']].indexOf(respond['code']);
@@ -95,6 +162,78 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.loadFacets();
   }
 
+  onUserChangeEnd() {
+    const temp: string[] = [];
+    switch (this.minValue + '-' + this.maxValue) {
+      case '0-50': {
+        temp.push('0');
+        break;
+      }
+      case '0-250': {
+        temp.push('0', '1');
+        break;
+      }
+      case '0-500': {
+        temp.push('0', '1', '2');
+        break;
+      }
+      case '0-1000': {
+        temp.push('0', '1', '2', '3');
+        break;
+      }
+      case '0-5000': {
+        temp.push('0', '1', '2', '3', '4');
+        break;
+      }
+      case '50-250': {
+        temp.push('1');
+        break;
+      }
+      case '50-500': {
+        temp.push('1', '2');
+        break;
+      }
+      case '50-1000': {
+        temp.push('1', '2', '3');
+        break;
+      }
+      case '50-5000': {
+        temp.push('1', '2', '3', '4');
+        break;
+      }
+      case '250-500': {
+        temp.push('2');
+        break;
+      }
+      case '250-1000': {
+        temp.push('2', '3');
+        break;
+      }
+      case '250-5000': {
+        temp.push('2', '3', '4');
+        break;
+      }
+      case '500-1000': {
+        temp.push('3');
+        break;
+      }
+      case '500-5000': {
+        temp.push('3', '4');
+        break;
+      }
+      case '1000-5000': {
+        temp.push('4');
+        break;
+      }
+  }
+  this.$amountRange.next(temp);
+}
+
+  /* getChangeContextString(changeContext: ChangeContext): string {
+    return `{pointerType: ${changeContext.pointerType === PointerType.Min ? 'Min' : 'Max'}, ` +
+           `value: ${changeContext.value}, ` +
+           `highValue: ${changeContext.highValue}}`;
+  } */
   // CHART METHODES
   /* onButtonClick() {
     if (!this.isFirstLevel) {
@@ -153,18 +292,18 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   loadFacets() {
     for (const entry of this.facetCategories) {
-        this.service.getFacets(entry['code'], this.numMore[entry['code']], this.selectedFacets, this.searchText).subscribe(response => {
-          this.facetOptions[entry['code']] = response['facetOptions'];
-          this.hasMore[entry['code']] = response['hasMore'];
-          /* if (entry['code'] === 'mon') {
-            let temp: DataItem[] = [];
-            for (const item of this.facetOptions[entry['code']]) {
-              let tempObject = { arg: item['code'], val: item['count'], parentID: '' };
-              temp.push(tempObject);
-            }
-            this.dataSource = temp;
-          } */
-        });
+      this.service.getFacets(entry['code'], this.numMore[entry['code']], this.selectedFacets, this.searchText).subscribe(response => {
+        this.facetOptions[entry['code']] = response['facetOptions'];
+        this.hasMore[entry['code']] = response['hasMore'];
+        /* if (entry['code'] === 'mon') {
+          let temp: DataItem[] = [];
+          for (const item of this.facetOptions[entry['code']]) {
+            let tempObject = { arg: item['code'], val: item['count'], parentID: '' };
+            temp.push(tempObject);
+          }
+          this.dataSource = temp;
+        } */
+      });
     }
   }
 
@@ -195,13 +334,18 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
     if (index !== -1) {
       this.chosenFilters.splice(index, 1);
     }
-    if (item.cat !== 'note') {
+    if (item.cat !== 'note' && item.cat !== 'amt') {
       const indexInSelected = this.selectedFacets[item.cat].indexOf(item.code);
       if (indexInSelected !== -1) {
         this.selectedFacets[item.cat].splice(indexInSelected, 1);
       }
-    } else {
+    } else if (item.cat === 'note') {
       this.searchText = '';
+    } else if (item.cat === 'amt') {
+      this.selectedFacets['amt'] = [];
+      this.minValue = 0;
+      this.maxValue = 5000;
+      this.manualRefresh.emit();
     }
     this.loadList(this.pageSize, this.pageIndex);
     this.loadFacets();
@@ -211,10 +355,23 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
     const index = this.chosenFilters.findIndex(i => i.code === item.code);
     if (index === -1) {
       if (!(cat === 'note' && item.descr === undefined)) {
-        this.chosenFilters.push({'cat': cat, 'icon': icon, 'descr' : item.descr, 'code': item.code});
+        this.chosenFilters.push({
+          'cat': cat,
+          'icon': icon,
+          'descr': item.descr,
+          'code': item.code
+        });
       }
     } else {
       this.chosenFilters.splice(index, 1);
+      if (cat === 'amt' && !(this.minValue === 0 && this.maxValue === 1500)) {
+        this.chosenFilters.push({
+          'cat': cat,
+          'icon': icon,
+          'descr': item.descr,
+          'code': item.code
+        });
+      }
     }
   }
 
@@ -230,7 +387,7 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
     this.service.getFacets(cat, this.numMore[cat], this.selectedFacets, this.searchText).subscribe(res => {
       this.facetOptions[cat] = res['facetOptions'];
-        this.hasMore[cat] = res['hasMore'];
+      this.hasMore[cat] = res['hasMore'];
     });
   }
 
@@ -239,6 +396,9 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.selectedFacets[i['code']] = [];
       this.numMore[i['code']] = 1;
     }
+    this.minValue = 0;
+    this.maxValue = 5000;
+    this.manualRefresh.emit();
     this.chosenFilters = [];
     this.searchText = '';
     this.loadList(this.pageSize, this.pageIndex);

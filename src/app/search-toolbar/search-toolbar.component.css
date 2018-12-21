@@ -1,120 +1,150 @@
 @media only screen and (max-width: 360px) {
-    ::ng-deep .mat-form-field-suffix {
-        display: none !important;
-    }
-    ::ng-deep .mat-form-field-prefix {
-        display: none !important;
-    }
+  ::ng-deep .mat-form-field-suffix {
+    display: none !important;
+  }
+
+  ::ng-deep .mat-form-field-prefix {
+    display: none !important;
+  }
 }
+
 @media only screen and (max-width: 810px) {
-    .title {
-        display: none !important;
-    }
-    .searchField {
-        width: calc(100% - 204px) !important;
-    }
+  .title {
+    display: none !important;
+  }
+
+  .searchField {
+    width: calc(100% - 204px) !important;
+  }
 }
+
 .iconsDiv {
-    margin-left: 28px;
+  margin-left: 28px;
 }
+
 .spacer {
-    flex: 1 1 auto;
+  flex: 1 1 auto;
 }
+
 .title {
-    margin-left: 14px;
-    margin-right: 28px;
-    letter-spacing: 1px;
-    font-size: 24px;
+  margin-left: 14px;
+  margin-right: 28px;
+  letter-spacing: 1px;
+  font-size: 24px;
 }
+
 ::ng-deep .mat-toolbar-multiple-rows {
-    min-height: 48px !important;
-    height: 48px !important;
+  min-height: 48px !important;
+  height: 48px !important;
 }
+
 ::ng-deep .mat-toolbar-row {
-    height: 48px !important;
+  height: 48px !important;
 }
+
 ::ng-deep .mat-input-element {
-    position: relative !important;
-    bottom: 0px !important;
+  position: relative !important;
+  bottom: 0px !important;
 }
+
 ::ng-deep .mat-autocomplete-panel {
-    max-height: 600px !important;
+  max-height: 600px !important;
 }
+
 .searchField {
-    height: 44px !important;
-    border-radius: 5px;
-    width: calc(100% - 492px);
+  height: 44px !important;
+  border-radius: 5px;
+  width: calc(100% - 492px);
 }
+
 .search:focus {
-    color: black;
+  color: black;
 }
+
 .inputIcon {
-    position: relative !important;
-    bottom: 2px !important;
-    border-radius: 15px;
-    width: 28px;
-    height: 28px;
-    font-size: 28px;
+  position: relative !important;
+  bottom: 2px !important;
+  border-radius: 15px;
+  width: 28px;
+  height: 28px;
+  font-size: 28px;
 }
+
 .pointer {
-    cursor: pointer;
+  cursor: pointer;
 }
+
 .noSelect {
-    -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-                user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
+
 ::ng-deep .mat-form-field-wrapper {
-    font-size: 17px !important;
-    top: 1px !important;
-    margin: 0 !important;
+  font-size: 17px !important;
+  top: 1px !important;
+  margin: 0 !important;
 }
+
 ::ng-deep .mat-form-field-infix {
-    padding: 0.4em 0 !important;
-    bottom: 4px;
-    left: 10px;
+  padding: 0.4em 0 !important;
+  bottom: 4px;
+  left: 10px;
 }
+
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-       color: rgba(255, 255, 255, 0.219);
-    }
-::ng-deep input, ::placeholder, .mat-form-field-label {
-          color: white;
-       }
+  color: rgba(255, 255, 255, 0.219);
+}
+
+::ng-deep input,
+::placeholder,
+.mat-form-field-label {
+  color: white;
+}
+
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-thick {
-    color: rgba(255, 255, 255, 0.605) !important;
+  color: rgba(255, 255, 255, 0.605) !important;
 }
+
 ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
-    color: white !important;
+  color: white !important;
 }
+
 ::ng-deep .mat-input-element {
-    caret-color: black !important;
+  caret-color: black !important;
 }
+
 ::ng-deep .mat-form-field-label {
-    color: rgba(255, 255, 255, 0.9) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
 }
+
 ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
-    color: white !important;
+  color: white !important;
 }
+
 .option {
-    height: 52px !important;
-    padding: 0 17px;
+  height: 52px !important;
+  padding: 0 17px;
 }
+
 .employee {
-    color: rgb(55, 72, 170);
-    display: inline-block;
-    width: 25%;
+  color: rgb(55, 72, 170);
+  display: inline-block;
+  width: 25%;
 }
+
 .amount {
-    font-size: 21px;
-    font-weight: bold;
-    color: rgb(141, 0, 0);
-    display: inline-block;
-    width: 9%;
+  font-size: 21px;
+  font-weight: bold;
+  color: rgb(141, 0, 0);
+  display: inline-block;
+  width: 9%;
 }
+
 .note {
-    font-style:italic;
-    letter-spacing: 1px; 
+  font-style: italic;
+  letter-spacing: 1px;
 }

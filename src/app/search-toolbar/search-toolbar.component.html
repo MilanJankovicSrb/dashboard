@@ -1,50 +1,39 @@
 <mat-toolbar color="primary" class="mat-elevation-z2">
-    <mat-toolbar-row>
-        <button mat-icon-button class="iconButton">
-            <mat-icon>menu</mat-icon>
-        </button>
-        <span class="title noSelect">Spese di Rappresentanza</span>
-        <span class="spacer"></span>
-        <mat-form-field appearance="outline" class="searchField" [ngStyle]="{'background-color': searchColor}">
-            <mat-icon matPrefix class="inputIcon noSelect" [ngStyle]="{'color': iconColor}">search</mat-icon>
-            <input matInput placeholder="Cerca" [formControl]="value" 
-                   #input [matAutocomplete]="auto"
-                   class="search"
-                   (focus)="onFocus()"
-                   (focusout)="onFocusOut()">
-            <mat-icon matSuffix class="inputIcon noSelect pointer" 
-                        matRipple
-                        [matRippleRadius]="20"
-                        [ngStyle]="{'color': iconColor}"
-                        (click)="cleanValue();"
-                        matTooltip="Cancella tutto"
-                        >close</mat-icon>
-        </mat-form-field>
-        <mat-autocomplete #auto="matAutocomplete">
-            <mat-option class="option" *ngFor="let option of autocompleteList" [value]="option.nota" (click)="selectOption(value.value.slice(0, 20), value.value)">
-                <span class="employee">{{option.lavMatricola}} - {{option.lavCognome}} {{option.lavNome}}</span>Amount:<span class="amount"> {{option.varieImporto}}</span><span class="note">Note: {{option.nota | titlecase}}</span>
-            </mat-option>
-            <mat-optgroup *ngIf="cdcAutocompleteList.length" 
-                      [label]="'Centro di costo'">
-            <mat-option #option 
-                      class="option" 
-                      value="{{item.code}} - {{item.descr}}" 
-                      *ngFor="let item of cdcAutocompleteList; trackBy: trackByFn;" 
-                      (click)="sendSelectedFacet('cdc',item.code, item.descr)">
-            <mat-icon svgIcon="sitemap"></mat-icon>({{item.count}}) {{item.code}} - {{item.descr}}
-          </mat-option>
-        </mat-optgroup>
-        </mat-autocomplete>
-        <div class="iconsDiv">
-            <button mat-icon-button class="iconButton">
-                <mat-icon>help</mat-icon>
-            </button>
-            <button mat-icon-button class="iconButton">
-                <mat-icon>person_pin</mat-icon>
-            </button>
-            <button mat-icon-button class="iconButton">
-                <mat-icon>more_vert</mat-icon>
-            </button>
-        </div>
-    </mat-toolbar-row>
+  <mat-toolbar-row>
+    <button mat-icon-button class="iconButton">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span class="title noSelect">Spese di Rappresentanza</span>
+    <span class="spacer"></span>
+    <mat-form-field appearance="outline" class="searchField" [ngStyle]="{'background-color': searchColor}">
+      <mat-icon matPrefix class="inputIcon noSelect" [ngStyle]="{'color': iconColor}">search</mat-icon>
+      <input matInput placeholder="Cerca" [formControl]="value" #input [matAutocomplete]="auto" class="search" (focus)="onFocus()"
+        (focusout)="onFocusOut()">
+      <mat-icon matSuffix class="inputIcon noSelect pointer" matRipple [matRippleRadius]="20" [ngStyle]="{'color': iconColor}"
+        (click)="cleanValue();" matTooltip="Cancella tutto">close</mat-icon>
+    </mat-form-field>
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option class="option" *ngFor="let option of autocompleteList" [value]="option.nota" (click)="selectOption(value.value.slice(0, 20), value.value)">
+        <span class="employee">{{option.lavMatricola}} - {{option.lavCognome}} {{option.lavNome}}</span>Amount:<span
+          class="amount"> {{option.varieImporto}}</span><span class="note">Note: {{option.nota | titlecase}}</span>
+      </mat-option>
+      <mat-optgroup *ngIf="cdcAutocompleteList.length" [label]="'Centro di costo'">
+        <mat-option #option class="option" value="{{item.code}} - {{item.descr}}" *ngFor="let item of cdcAutocompleteList; trackBy: trackByFn;"
+          (click)="sendSelectedFacet('cdc',item.code, item.descr)">
+          <mat-icon svgIcon="sitemap"></mat-icon>({{item.count}}) {{item.code}} - {{item.descr}}
+        </mat-option>
+      </mat-optgroup>
+    </mat-autocomplete>
+    <div class="iconsDiv">
+      <button mat-icon-button class="iconButton">
+        <mat-icon>help</mat-icon>
+      </button>
+      <button mat-icon-button class="iconButton">
+        <mat-icon>person_pin</mat-icon>
+      </button>
+      <button mat-icon-button class="iconButton">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar-row>
 </mat-toolbar>

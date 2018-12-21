@@ -1,72 +1,41 @@
 <div class="container" [class.is-mobile]="mobileQuery.matches">
-    <div class="paginator noSelect">
-        <div class="sidenavControl">
-            <button mat-icon-button (click)="snav.toggle();">
-                <mat-icon class="arrows" 
-                        svgIcon="chevron-double-left" 
-                        matListIcon        
-                        *ngIf="snav.opened"></mat-icon>
-                <mat-icon class="arrows" 
-                        svgIcon="chevron-double-right" 
-                        matListIcon 
-                        *ngIf="!snav.opened"></mat-icon>
-                <mat-icon class="filter" 
-                        svgIcon="filter-outline" 
-                        matListIcon 
-                        matTooltip="Chiudi sfaccettatura" 
-                        *ngIf="snav.opened"></mat-icon>
-                <mat-icon class="filter" 
-                        svgIcon="filter-outline" 
-                        matListIcon 
-                        matTooltip="Apri sfaccettatura" 
-                        *ngIf="!snav.opened"></mat-icon>
-            </button>
-            <button mat-icon-button 
-                    (click)="resetAll()">
-            <mat-icon class="filterReset" 
-                        svgIcon="filter-outline" 
-                        matListIcon 
-                        matTooltip="Rimuovi filtri"></mat-icon>
-            <mat-icon class="reset" 
-                        svgIcon="close" 
-                        matListIcon></mat-icon>
-            </button>
-        </div>
-        <div class="spacerInToolbar"></div>
-        <div class="sortAndOrder">
-            <button mat-icon-button class="sortButton" (click)="ascending = !ascending; loadList(pageSize, pageIndex);">
-                <mat-icon svgIcon="arrow-collapse-up" 
-                    *ngIf="!ascending"
-                    matTooltip="Ascendente" 
-                    class="sortIcon"></mat-icon>
-                <mat-icon svgIcon="arrow-collapse-down" 
-                    *ngIf="ascending"
-                    matTooltip="Discendente" 
-                    class="sortIcon"></mat-icon>
-            </button>
-            <span class="orderText">Ordina per:</span>
-            <mat-form-field class="orderBy" floatLabel="never">
-                <mat-select [formControl]="orderBy" panelClass="orderByPanel">
-                    <mat-option [value]="1">1</mat-option>
-                    <mat-option [value]="2">2</mat-option>
-                    <mat-option [value]="3">3</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <div class="spacer"></div>
-        <mat-paginator [length]="length"
-                       [pageSize]="pageSize"
-                       [pageIndex]="pageIndex"
-                       [pageSizeOptions]="pageSizeOptions"
-                       [showFirstLastButtons]="true"
-                       (page)="onPageChanged($event);">
-        </mat-paginator>
+  <div class="paginator noSelect">
+    <div class="sidenavControl">
+      <button mat-icon-button (click)="snav.toggle();">
+        <mat-icon class="arrows" svgIcon="chevron-double-left" matListIcon *ngIf="snav.opened"></mat-icon>
+        <mat-icon class="arrows" svgIcon="chevron-double-right" matListIcon *ngIf="!snav.opened"></mat-icon>
+        <mat-icon class="filter" svgIcon="filter-outline" matListIcon matTooltip="Chiudi sfaccettatura" *ngIf="snav.opened"></mat-icon>
+        <mat-icon class="filter" svgIcon="filter-outline" matListIcon matTooltip="Apri sfaccettatura" *ngIf="!snav.opened"></mat-icon>
+      </button>
+      <button mat-icon-button (click)="resetAll()">
+        <mat-icon class="filterReset" svgIcon="filter-outline" matListIcon matTooltip="Rimuovi filtri"></mat-icon>
+        <mat-icon class="reset" svgIcon="close" matListIcon></mat-icon>
+      </button>
     </div>
-    <mat-sidenav-container class="sidenav-container"
-                            [style.marginTop.px]="mobileQuery.matches ? 0 : 0">
-        <mat-sidenav #snav class="facetsSidenav" [mode]="mobileQuery.matches ? 'over' : 'side'"
-                    [fixedInViewport]="mobileQuery.matches" fixedTopGap="89" [opened]="mobileQuery.matches ? 'false' : 'true'">
-        <!-- <mat-expansion-panel [expanded]="true">
+    <div class="spacerInToolbar"></div>
+    <div class="sortAndOrder">
+      <button mat-icon-button class="sortButton" (click)="ascending = !ascending; loadList(pageSize, pageIndex);">
+        <mat-icon svgIcon="arrow-collapse-up" *ngIf="!ascending" matTooltip="Ascendente" class="sortIcon"></mat-icon>
+        <mat-icon svgIcon="arrow-collapse-down" *ngIf="ascending" matTooltip="Discendente" class="sortIcon"></mat-icon>
+      </button>
+      <span class="orderText">Ordina per:</span>
+      <mat-form-field class="orderBy" floatLabel="never">
+        <mat-select [formControl]="orderBy" panelClass="orderByPanel">
+          <mat-option [value]="1">1</mat-option>
+          <mat-option [value]="2">2</mat-option>
+          <mat-option [value]="3">3</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="spacer"></div>
+    <mat-paginator [length]="length" [pageSize]="pageSize" [pageIndex]="pageIndex" [pageSizeOptions]="pageSizeOptions"
+      [showFirstLastButtons]="true" (page)="onPageChanged($event);">
+    </mat-paginator>
+  </div>
+  <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 0 : 0">
+    <mat-sidenav #snav class="facetsSidenav" [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
+      fixedTopGap="89" [opened]="mobileQuery.matches ? 'false' : 'true'">
+      <!-- <mat-expansion-panel [expanded]="true">
          <mat-expansion-panel-header class="noSelect">
           <mat-panel-title>
             <span>Test chart</span> 
@@ -99,100 +68,143 @@
                 (onClick)="onButtonClick()">
         </dx-button>
       </mat-expansion-panel> -->
-                    <mat-expansion-panel [disabled]="chosenFilters.length === 0" 
-                           [expanded]="chosenFilters.length !== 0">
+      <mat-expansion-panel [disabled]="chosenFilters.length === 0" [expanded]="chosenFilters.length !== 0">
         <mat-expansion-panel-header class="noSelect">
           <mat-panel-title>
-            <div matBadge="{{chosenFilters.length}}" 
-                 matBadgeSize="medium" 
-                 matBadgeOverlap="false"
-                 [ngClass]="{'noFilters': chosenFilters.length === 0}"></div>
-            <span [ngClass]="{'includeMargin': chosenFilters.length === 0}">Selezionati</span> 
+            <div matBadge="{{chosenFilters.length}}" matBadgeSize="medium" matBadgeOverlap="false" [ngClass]="{'noFilters': chosenFilters.length === 0}"></div>
+            <span [ngClass]="{'includeMargin': chosenFilters.length === 0}">Selezionati</span>
           </mat-panel-title>
         </mat-expansion-panel-header>
         <mat-nav-list class="noSelect">
-                <a mat-list-item class="selected mat-elevation-z2" routerLink="." (click)="deselectFacet(entry)" *ngFor="let entry of chosenFilters">
-                    <mat-icon class="facetOptionIcon move" *ngIf="entry.icon !== 'sitemap'">{{entry.icon}}</mat-icon>
-                    <mat-icon class="facetOptionIcon move" svgIcon="{{entry.icon}}" *ngIf="entry.icon === 'sitemap'"></mat-icon>
-                    <span class="selectedOption">&nbsp;{{entry.descr}}</span>
-                </a>
-            </mat-nav-list>
+          <a mat-list-item class="selected mat-elevation-z2" routerLink="." (click)="deselectFacet(entry)" *ngFor="let entry of chosenFilters">
+            <mat-icon class="facetOptionIcon move" *ngIf="entry.icon !== 'sitemap'">{{entry.icon}}</mat-icon>
+            <mat-icon class="facetOptionIcon move" svgIcon="{{entry.icon}}" *ngIf="entry.icon === 'sitemap'"></mat-icon>
+            <span class="selectedOption">&nbsp;{{entry.descr}}</span>
+            <div class="spacer"></div>
+            <mat-icon>close</mat-icon>
+          </a>
+        </mat-nav-list>
       </mat-expansion-panel>
-                <mat-expansion-panel [expanded]="i &lt; 1" *ngFor="let category of facetCategories; let i = index">
-                    <mat-expansion-panel-header class="noSelect">
-                        <mat-panel-title>
-                            <mat-icon *ngIf="category.icon !== 'sitemap'">{{category.icon}}</mat-icon>
-                            <mat-icon svgIcon="{{category.icon}}" 
-                                        matListIcon
-                                        *ngIf="category.icon === 'sitemap'"></mat-icon>
-                        &nbsp;&nbsp;{{category.descr}}
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <mat-nav-list class="noSelect">
-                        <a mat-list-item routerLink="." (click)="selectFacet(category.code, entry.code); moveToChosen(entry, category.code, category.icon)" *ngFor="let entry of facetOptions[category.code]" [ngClass]="{'selected': isSelected(category.code, entry.code), 'mat-elevation-z2': isSelected(category.code, entry.code)}">
-                            <mat-icon class="facetOptionIcon">arrow_right</mat-icon>
-                            <span *ngIf="category.code !== 'mon'">{{entry.descr}}</span>
-                            <span *ngIf="category.code === 'mon'">{{ entry.descr | slice:0:4 }} / {{ entry.descr | slice:4:end}}</span>
-                            <div class="spacer"></div>
-                            <span>({{entry.count}})</span>
-                        </a>
-                    </mat-nav-list>
-                    <button mat-raised-button class="showMore" *ngIf="category.code !== 'amt' && facetOptions[category.code]?.length >= 5" (click)="showMore(true, category.code)" [disabled]="!hasMore[category.code]">Show more</button>
-                    <button mat-raised-button class="showLess" *ngIf="category.code !== 'amt' && facetOptions[category.code]?.length >= 5 && numMore[category.code] > 1" (click)="showMore(false, category.code)">Show less</button>
-                </mat-expansion-panel>
-        </mat-sidenav>
-        <mat-sidenav-content class="contentContainer">
-            <ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.circle, primaryColour: '#3f51b5', secondaryColour: '##ffffff', backdropBorderRadius: '3px' }"></ngx-loading>
-            <cdk-virtual-scroll-viewport itemSize="150" class="viewport">
-                <div *cdkVirtualFor="let item of activePageDataChunk; templateCacheSize: 0"
-                    class="listItem"
-                    cdkVirtualForTrackBy="trackByFn()">
-                    <div class="infoDiv">
-                        <div class="employee">
-                            <mat-icon class="listIcon top">person_outlined</mat-icon><span class="workerId">{{item.lavMatricola}}</span><br>
-                            <span class="workerId worker">{{item.lavCognome}} {{item.lavNome}}</span><br><br>
-                            <span class="noteBackground"><mat-icon class="noteIcon" *ngIf="item.nota">comment</mat-icon><span class="absoluteNote descrNote" *ngIf="item.nota">Nota:</span><br *ngIf="item.nota"><span class="absoluteNote" *ngIf="item.nota">{{item.nota}}</span></span>
-                        </div>
-                        <div class="amountDiv">
-                            <mat-icon class="listIcon">date_range</mat-icon><span class="yearMonthDay">{{item.rapGiorno}}/{{item.rapMese}}/{{item.rapAnno}}</span><br><br>
-                            <span class="amount" [ngClass]="{'importoValuta': !item.importoValuta}"><span class="descrAmount">Importo:</span> {{item.varieImporto | currency:'EUR':'':'1.2-2':'it' }}<span class="importoValuta" *ngIf="!item.importoValuta">€</span></span><br>
-                            <span class="currency" *ngIf="item.divCodice"><span class="descrAmount">Valuta:</span> {{item.divCodice}}</span><br>
-                            <span class="importoValuta" *ngIf="item.importoValuta"><span class="descrAmount">In EUR:</span> {{item.importoValuta | currency:'EUR':'symbol':'1.2-2':'it'}}</span>
-                        </div>
-                        <div class="costCentre">
-                            <span class="cdcTitle"><mat-icon class="cdcInfo" svgIcon="sitemap"></mat-icon><span class="cdcId"><span class="descr">Centro di costo:</span> {{item.codCdc}}</span></span><br>
-                            <mat-icon class="listIcon">description</mat-icon><span class="cdcDescription"><span class="descr">Descr:</span> {{item.cdcDescrizione}}</span><br>
-                            <mat-icon class="listIcon">visibility</mat-icon><span class="cdcResp"><span class="descr">Responsabile:</span> {{item.cdcResponsabile}} - {{item.cdcRespCognome}} {{item.cdcRespNome}}</span><br>
-                            <mat-icon class="listIcon" *ngIf="item.cdcConsolidationSegment">widgets</mat-icon><span class="cdcSegment" *ngIf="item.cdcConsolidationSegment"><span class="descr">Segmento:</span> {{item.cdcConsolidationSegment}}</span><br *ngIf="item.cdcConsolidationSegment">
-                            <mat-icon class="listIcon">business</mat-icon><span class="companyId"><span class="descr">Societa:</span> {{item.socDescbreve}}</span>
-                        </div>
-                        <div class="spacerSmall"></div>
-                        <div class="costCenterSmallScreen">
-                            <span class="cdcTitle">
-                                <mat-icon class="cdcInfo" svgIcon="sitemap"></mat-icon>
-                                <span class="cdcId">{{item.codCdc}}</span>
-                            </span>
-                            <div class="signsSmallScreen">
-                                <span class="signSmallDescr" *ngIf="item.f1"><mat-icon class="listIcon">done</mat-icon><span class="descr">Prima Firma:</span></span>
-                                <span *ngFor="let sign of item.f1">
-                                    <span class="signSmall" *ngIf="sign">{{sign.matr}} - {{sign.conome | slice:1:end}}</span><br *ngIf="sign">
-                                </span>
-                                <span class="signSmallDescr"><mat-icon class="listIcon">done_all</mat-icon><span class="descr">Seconda Firma:</span></span>
-                                <span class="signSmall">{{item.f2Matricola}} - {{item.f2Cognome}} {{item.f2Nome}}</span>
-                            </div>
-                        </div>
-                        <div class="spacer none"></div>
-                        <div class="secondSign">
-                            <span *ngFor="let sign of item.f1">
-                                    <span class="secondSignTitle" *ngIf="sign"><mat-icon class="listIcon">done</mat-icon><span class="descr">Prima Firma:</span></span><br *ngIf="sign">
-                                    <span class="secondSignId" *ngIf="sign">{{sign.matr}} - {{sign.conome | slice:1:end}}</span><br *ngIf="sign">
-                            </span>
-                            <span class="secondSignTitle"><mat-icon class="listIcon">done_all</mat-icon><span class="descr">Seconda Firma:</span></span><br>
-                            <span class="secondSignId">{{item.f2Matricola}} - {{item.f2Cognome}} {{item.f2Nome}}</span>
-                        </div>
-                    </div>
-                </div>
-            </cdk-virtual-scroll-viewport>
-        </mat-sidenav-content>
-    </mat-sidenav-container>
+      <mat-expansion-panel [expanded]="i &lt; 1" *ngFor="let category of facetCategories; let i = index">
+        <mat-expansion-panel-header class="noSelect">
+          <mat-panel-title>
+            <mat-icon *ngIf="category.icon !== 'sitemap'">{{category.icon}}</mat-icon>
+            <mat-icon svgIcon="{{category.icon}}" matListIcon *ngIf="category.icon === 'sitemap'"></mat-icon>
+            &nbsp;&nbsp;{{category.descr}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div *ngIf="category.code !== 'amt'">
+          <mat-nav-list class="noSelect">
+            <a mat-list-item routerLink="." (click)="selectFacet(category.code, entry.code); moveToChosen(entry, category.code, category.icon)"
+              *ngFor="let entry of facetOptions[category.code]" [ngClass]="{'selected': isSelected(category.code, entry.code), 'mat-elevation-z2': isSelected(category.code, entry.code)}">
+              <mat-icon class="facetOptionIcon">arrow_right</mat-icon>
+              <span *ngIf="category.code !== 'mon'">{{entry.descr}}</span>
+              <span *ngIf="category.code === 'mon'">{{ entry.descr | slice:0:4 }} / {{ entry.descr | slice:4:end}}</span>
+              <div class="spacer"></div>
+              <span>({{entry.count}})</span>
+            </a>
+          </mat-nav-list>
+          <button mat-raised-button class="showMore" *ngIf="category.code !== 'amt' && facetOptions[category.code]?.length >= 5"
+            (click)="showMore(true, category.code)" [disabled]="!hasMore[category.code]">Show more</button>
+          <button mat-raised-button class="showLess" *ngIf="category.code !== 'amt' && facetOptions[category.code]?.length >= 5 && numMore[category.code] > 1"
+            (click)="showMore(false, category.code)">Show less</button>
+        </div>
+        <div class="custom-slider" *ngIf="category.code === 'amt'">
+            <ng5-slider [(value)]="minValue" 
+                        [(highValue)]="maxValue" 
+                        [options]="options"
+                        (userChangeEnd)="onUserChangeEnd()"
+                        [manualRefresh]="manualRefresh">
+            </ng5-slider>
+          </div>
+      </mat-expansion-panel>
+    </mat-sidenav>
+    <mat-sidenav-content class="contentContainer">
+      <ngx-loading [show]="loading" [config]="{ animationType: ngxLoadingAnimationTypes.circle, primaryColour: '#3f51b5', secondaryColour: '##ffffff', backdropBorderRadius: '3px' }"></ngx-loading>
+      <cdk-virtual-scroll-viewport itemSize="150" class="viewport">
+        <div *cdkVirtualFor="let item of activePageDataChunk; templateCacheSize: 0" class="listItem"
+          cdkVirtualForTrackBy="trackByFn()">
+          <div class="infoDiv">
+            <div class="employee">
+              <mat-icon class="listIcon top">person_outlined</mat-icon><span class="workerId">{{item.lavMatricola}}</span><br>
+              <span class="workerId worker">{{item.lavCognome}} {{item.lavNome}}</span><br><br>
+              <span class="noteBackground">
+                <mat-icon class="noteIcon" *ngIf="item.nota">comment</mat-icon><span class="absoluteNote descrNote"
+                  *ngIf="item.nota">Nota:</span><br *ngIf="item.nota"><span class="absoluteNote" *ngIf="item.nota">{{item.nota}}</span>
+              </span>
+            </div>
+            <div class="spacerSmallest"></div>
+            <div class="amountDiv">
+              <mat-icon class="listIcon">date_range</mat-icon><span class="yearMonthDay">{{item.rapGiorno}}/{{item.rapMese}}/{{item.rapAnno}}</span><br><br
+                class="hideWhenSignComes">
+              <span class="amount" [ngClass]="{'importoValuta': !item.importoValuta}"><span class="descrAmount">Importo:</span>
+                {{item.varieImporto | currency:'EUR':'':'1.2-2':'it' }}<span class="importoValuta" *ngIf="!item.importoValuta">€</span></span><br>
+              <span class="currency" *ngIf="item.divCodice"><span class="descrAmount">Valuta:</span> {{item.divCodice}}</span><br>
+              <span class="importoValuta" *ngIf="item.importoValuta"><span class="descrAmount">In EUR:</span>
+                {{item.importoValuta | currency:'EUR':'symbol':'1.2-2':'it'}}</span><br class="whenSignInAmount">
+              <span class="secondSignInAmount">
+                <mat-icon class="listIcon">done_all</mat-icon><span class="descr">Seconda Firma:</span>
+              </span>
+              <span class="secondSignIdInAmount">{{item.f2Matricola}} - {{item.f2Cognome}} {{item.f2Nome}}</span>
+            </div>
+            <div class="costCentre">
+              <span class="cdcTitle">
+                <mat-icon class="cdcInfo" svgIcon="sitemap"></mat-icon><span class="cdcId"><span class="descr">Centro
+                    di costo:</span> {{item.codCdc}}</span>
+              </span><br>
+              <mat-icon class="listIcon">description</mat-icon><span class="cdcDescription"><span class="descr">Descr:</span>
+                {{item.cdcDescrizione}}</span><br>
+              <mat-icon class="listIcon">visibility</mat-icon><span class="cdcResp"><span class="descr">Responsabile:</span>
+                {{item.cdcResponsabile}} - {{item.cdcRespCognome}} {{item.cdcRespNome}}</span><br>
+              <mat-icon class="listIcon" *ngIf="item.cdcConsolidationSegment">widgets</mat-icon><span class="cdcSegment"
+                *ngIf="item.cdcConsolidationSegment"><span class="descr">Segmento:</span>
+                {{item.cdcConsolidationSegment}}</span><br *ngIf="item.cdcConsolidationSegment">
+              <mat-icon class="listIcon">business</mat-icon><span class="companyId"><span class="descr">Societa:</span>
+                {{item.socDescbreve}}</span>
+            </div>
+            <div class="spacerSmall"></div>
+            <div class="costCenterSmallScreen">
+              <span class="cdcTitle">
+                <mat-icon class="cdcInfo" svgIcon="sitemap"></mat-icon>
+                <span class="cdcId">{{item.codCdc}}</span>
+              </span>
+              <div class="signsSmallScreen">
+                <span class="signSmallDescr" *ngIf="item.f1">
+                  <mat-icon class="listIcon">done</mat-icon><span class="descr">Prima Firma:</span>
+                </span>
+                <span *ngFor="let sign of item.f1">
+                  <span class="signSmall" *ngIf="sign">{{sign.matr}} - {{sign.conome | slice:1:end}}</span><br *ngIf="sign">
+                </span>
+                <span class="signSmallDescr">
+                  <mat-icon class="listIcon">done_all</mat-icon><span class="descr">Seconda Firma:</span>
+                </span>
+                <span class="signSmall">{{item.f2Matricola}} - {{item.f2Cognome}} {{item.f2Nome}}</span>
+              </div>
+            </div>
+            <div class="spacer none"></div>
+            <div class="secondSign">
+              <span *ngFor="let sign of item.f1">
+                <span class="secondSignTitle" *ngIf="sign">
+                  <mat-icon class="listIcon">done</mat-icon><span class="descr">Prima Firma:</span>
+                </span><br *ngIf="sign">
+                <span class="secondSignId" *ngIf="sign">{{sign.matr}} - {{sign.conome | slice:1:end}}</span><br *ngIf="sign">
+              </span>
+              <span class="secondSignTitle">
+                <mat-icon class="listIcon">done_all</mat-icon><span class="descr">Seconda Firma:</span>
+              </span><br>
+              <span class="secondSignId">{{item.f2Matricola}} - {{item.f2Cognome}} {{item.f2Nome}}</span>
+            </div>
+          </div>
+          <div class="smallestInfo">
+            <mat-icon class="listIcon withMargin">date_range</mat-icon><span class="yearMonthDay">{{item.rapGiorno}}/{{item.rapMese}}/{{item.rapAnno}}</span>
+            <span class="importoValuta" *ngIf="item.importoValuta"><span class="descrAmount">In EUR:</span>
+              {{item.importoValuta | currency:'EUR':'symbol':'1.2-2':'it'}}</span>
+            <span class="amount" [ngClass]="{'importoValuta': !item.importoValuta}" *ngIf="!item.importoValuta"><span
+                class="descrAmount" *ngIf="!item.importoValuta">Importo:</span> {{item.varieImporto |
+              currency:'EUR':'':'1.2-2':'it' }}<span class="importoValuta noMargin" *ngIf="!item.importoValuta">€</span></span>
+          </div>
+        </div>
+      </cdk-virtual-scroll-viewport>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>
