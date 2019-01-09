@@ -1,9 +1,10 @@
+import { ShowmoreComponent } from './../showmore/showmore.component';
 import { debounceTime } from 'rxjs/operators';
 import {FormControl} from '@angular/forms';
-import {DashboardService,/* DataItem */} from './../dashboard.service';
+import {DashboardService, DataItem} from './../dashboard.service';
 import {Component, OnInit, OnDestroy, ChangeDetectorRef, AfterViewChecked, ViewChild, EventEmitter} from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
-import {PageEvent, MatPaginator} from '@angular/material';
+import {PageEvent, MatPaginator, MatDialog, MatDialogConfig} from '@angular/material';
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 import {ngxLoadingAnimationTypes} from 'ngx-loading';
 import { Options, ChangeContext, PointerType } from 'ng5-slider';
@@ -20,12 +21,12 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
   private _mobileQueryListener: () => void;
   // tslint:disable:max-line-length
   // CHART VARIABLES
-  /* dataSource: DataItem[];
+  dataSource: DataItem[];
   colors: string[];
-  isFirstLevel: boolean; */
+  isFirstLevel: boolean;
 
-  minValue: number = 0;
-  maxValue: number = 5000;
+  minValue = 0;
+  maxValue = 5000;
   manualRefresh: EventEmitter<void> = new EventEmitter<void>();
   options: Options = {
     floor: 0,
@@ -102,7 +103,7 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
   ];
   facetOptions: Object = {};
-  ascending: boolean = true;
+  ascending = true;
 
   orderBy = new FormControl(1);
 
@@ -118,7 +119,7 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
   public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
 
 
-  constructor(private changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private service: DashboardService /* , element: ElementRef */ ) {
+  constructor(private changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private service: DashboardService, private dialog: MatDialog /* , element: ElementRef */ ) {
     this.mobileQuery = media.matchMedia('(max-width: 701px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -127,9 +128,9 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.numMore[i['code']] = 1;
     }
 
-    /* this.dataSource = service.filterData(""); */
-    /* this.colors = service.getColors();
-    this.isFirstLevel = true; */
+    this.dataSource = service.filterData('');
+    this.colors = service.getColors();
+    this.isFirstLevel = true;
   }
 
   ngOnInit(): void {
@@ -160,6 +161,16 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
     });
     this.loadList(this.pageSize, this.pageIndex);
     this.loadFacets();
+  }
+
+  openDialog(item) {
+    const dialogRef = this.dialog.open(ShowmoreComponent, {
+      minWidth: '90%',
+      minHeight: '90vh',
+      width: '90%',
+      data: {expense: item},
+      hasBackdrop: true
+    });
   }
 
   onUserChangeEnd() {
@@ -229,16 +240,16 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
   this.$amountRange.next(temp);
 }
 
-  /* getChangeContextString(changeContext: ChangeContext): string {
+  getChangeContextString(changeContext: ChangeContext): string {
     return `{pointerType: ${changeContext.pointerType === PointerType.Min ? 'Min' : 'Max'}, ` +
            `value: ${changeContext.value}, ` +
            `highValue: ${changeContext.highValue}}`;
-  } */
+  }
   // CHART METHODES
-  /* onButtonClick() {
+  onButtonClick() {
     if (!this.isFirstLevel) {
         this.isFirstLevel = true;
-        this.dataSource = this.service.filterData("");
+        this.dataSource = this.service.filterData('');
     }
   }
 
@@ -260,12 +271,12 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
 
       if (!this.isFirstLevel) {
           pointSettings.hoverStyle = {
-              hatching: "none"
+              hatching: 'none'
           };
       }
 
       return pointSettings;
-  } */
+  }
 
   // CHART METHODES
 
@@ -364,7 +375,7 @@ export class ContentComponent implements OnInit, OnDestroy, AfterViewChecked {
       }
     } else {
       this.chosenFilters.splice(index, 1);
-      if (cat === 'amt' && !(this.minValue === 0 && this.maxValue === 1500)) {
+      if (cat === 'amt' && !(this.minValue === 0 && this.maxValue === 5000)) {
         this.chosenFilters.push({
           'cat': cat,
           'icon': icon,

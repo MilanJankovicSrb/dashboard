@@ -18,12 +18,14 @@ import { MatIconRegistry, MatPaginatorIntl } from '@angular/material';
 import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/it';
 import { MatPaginatorIntlIta } from './content/customPaginatorLabels';
+import { ShowmoreComponent } from './showmore/showmore.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchToolbarComponent,
-    ContentComponent
+    ContentComponent,
+    ShowmoreComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +46,8 @@ import { MatPaginatorIntlIta } from './content/customPaginatorLabels';
       useClass: MatPaginatorIntlIta
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ShowmoreComponent]
 })
 export class AppModule {
   constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {

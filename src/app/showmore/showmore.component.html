@@ -1,0 +1,30 @@
+<h1 mat-dialog-title>Informazioni aggiuntive</h1>
+
+<mat-dialog-content>
+  <h2>{{data.expense.lavMatricola}} - {{data.expense.lavCognome}} {{data.expense.lavNome}}</h2>
+  <mat-divider>
+  </mat-divider>
+  <h2 *ngIf="data.expense.nota">{{data.expense.nota}}</h2>
+  <mat-divider>
+    </mat-divider>
+  <h2>{{data.expense.varieImporto | currency:'EUR':'':'1.2-2':'it'}}</h2>
+  <h3>{{data.expense.rapGiorno}}/{{data.expense.rapMese}}/{{data.expense.rapAnno}}</h3>
+  <mat-divider>
+  </mat-divider>
+  <h3>{{data.expense.codCdc}}</h3>
+  <h3>{{data.expense.cdcDescrizione}}</h3>
+  <h4>{{data.expense.cdcResponsabile}} - {{data.expense.cdcRespCognome}} {{data.expense.cdcRespNome}}</h4>
+  <h4>{{data.expense.socDescbreve}}</h4>
+  <mat-divider>
+  </mat-divider>
+  <h3>Prima firma:</h3>
+  <h4 *ngFor="let sign of data.expense.f1">
+      {{sign.matr}} - {{sign.conome | slice:1:end}}<br *ngIf="sign">
+  </h4>
+  <h3>Seconda firma:</h3>
+  <h4>{{data.expense.f2Matricola}} - {{data.expense.f2Cognome}} {{data.expense.f2Nome}}</h4>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button class="mat-raised-button"(click)="close()">Chiuso</button>
+</mat-dialog-actions>

@@ -124,7 +124,7 @@
       <cdk-virtual-scroll-viewport itemSize="150" class="viewport">
         <div *cdkVirtualFor="let item of activePageDataChunk; templateCacheSize: 0" class="listItem"
           cdkVirtualForTrackBy="trackByFn()">
-          <div class="infoDiv">
+          <div class="infoDiv" (click)="openDialog(item)">
             <div class="employee">
               <mat-icon class="listIcon top">person_outlined</mat-icon><span class="workerId">{{item.lavMatricola}}</span><br>
               <span class="workerId worker">{{item.lavCognome}} {{item.lavNome}}</span><br><br>
